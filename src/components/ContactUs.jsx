@@ -3,7 +3,7 @@ import map from "../assets/map.png";
 import Input from "./Input";
 function ContactUs() {
   return (
-    <div className=" services font-Poppins text-[#30455E] mx-10">
+    <div className=" services font-Poppins text-[#30455E] mx-10 mb-20">
       <div className="text-center  font-semibold text-[48px] leading-[72px] mb-10">
         Contact Us
       </div>

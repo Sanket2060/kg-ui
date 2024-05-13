@@ -15,23 +15,23 @@ function Services() {
           Services
         </div>
         <div className="flex text-xl justify-around">
-          <div>
+          <div className="flex flex-col items-center">
             <img src={policereport} className="w-30 h-28" alt="" />
             <div className="mt-3">Police Report</div>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <img src={irddocument} alt="" className="w-30 h-28" />
             <div className="mt-3">IRD Document</div>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <img src={irddocument} alt="" className="w-30 h-28" />
             <div className="mt-3">Malpot Document</div>
           </div>
-          <div>
-            <img src={irddocument} alt="" className="w-30 h-28" />
+          <div className="flex flex-col items-center">
+            <img src={irddocument} alt="" className="w-30 h-28 " />
             <div className="mt-3">Municipality Document</div>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <img src={irddocument} alt="" className="w-30 h-28" />
             <div className="mt-3">Ward Document</div>
           </div>
