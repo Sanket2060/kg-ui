@@ -38,7 +38,7 @@ function Services() {
         </div>
       </div>
       <div className="about font-Poppins text-center flex flex-col items-center mb-16 ">
-        <div className="text-[48px] leading-[72px] mb-6">
+        <div className="text-[48px] leading-[72px] mb-6 font-semibold">
           About <span className="text-[#6361DC]">Kagazpatra</span>
         </div>
         <div className="w-[627px] text-xl leading-[30px]">
