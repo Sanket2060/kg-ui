@@ -4,7 +4,7 @@ import rings from "../assets/rings.png";
 import moon2 from "../assets/moon2.png";
 function DashboardNavbar() {
   return (
-    <div className="w-full h-56 my-10 px-14 font-Poppins text-[#30455E] font-medium">
+    <div className="w-full h-56 mt-10 px-14 font-Poppins text-[#30455E] font-medium">
       <div className="flex justify-between items-center mb-6">
         <div>
           <div className="text-2xl">Sandesh Ghimire</div>

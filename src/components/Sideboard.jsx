@@ -6,7 +6,7 @@ import group from "../assets/group.png";
 import pen from "../assets/pen.png";
 function Sideboard() {
   return (
-    <div className="font-Poppins w-[25%] h-screen border-2">
+    <div className="font-Poppins w-[20%] h-screen border-2">
       <header className="my-6">
         <img src={kaagazpatralogo} className="w-40 h-16 ml-3" alt="" />
       </header>
