@@ -7,13 +7,13 @@ import Footer from '../components/Footer'
 import PopupRegister from "../components/PopupRegister";
 import PopupLogin from "../components/PopupLogin";
 function Home() {
-    // const [isPopupOpen,setIsPopupOpen]=useState(false);
-    // const openPopup=()=>{
-    //     setIsPopupOpen(true);
-    // }
-    // const closePopup=()=>{
-    //     setIsPopupOpen(false);
-    // }
+    const [isPopupOpen,setIsPopupOpen]=useState(false);
+    const openPopup=()=>{
+        setIsPopupOpen(true);
+    }
+    const closePopup=()=>{
+        setIsPopupOpen(false);
+    }
   return (
     <>
       <Header  />

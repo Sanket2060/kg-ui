@@ -3,16 +3,16 @@ import kaagazpatralogo from "../assets/kaagazpatralogo.png";
 import Input from "./Input";
 import Button from "./Button";
 import cross from "../assets/cross.png";
-const PopupRegister = ({ isOpen = false, onClose }) => {
+const PopupRegister = ({ isOpen = true, onClose }) => {
   return (
     <>
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 font-Poppins">
           {/* yo line le kasari purai select garexa?? */}
 
-          <div className="bg-white relative rounded-lg w-[60%] h-[90%] flex flex-col items-center">
-            <div className="flex justify-end absolute right-5 top-5">
-              <img src={cross} className="w-4 h-4" alt="" srcset="" />
+          <div className="bg-white relative rounded-lg w-[60%] h-[95%] flex flex-col items-center">
+            <div className="flex justify-end absolute right-5 top-5 hover:cursor-pointer" onClick={onClose}>
+              <img src={cross} className="w-4 h-4" alt="" srcset=""/>
             </div>
             <img src={kaagazpatralogo} className="w-96 h-34" alt="" srcset="" />
             <div className="text-[#6361DC] text-base">Register new account</div>

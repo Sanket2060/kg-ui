@@ -5,12 +5,13 @@ import './App.css'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import GenerateDocument from './pages/utils/GenerateDocument'
+import PrintingDocument from './pages/utils/PrintingDocument'
 
 function App() {
 
   return (
     <>
-     <GenerateDocument/>
+     <Home/>
     </>
   )
 }
