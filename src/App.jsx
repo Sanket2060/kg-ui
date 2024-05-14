@@ -4,12 +4,13 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
+import GenerateDocument from './pages/utils/GenerateDocument'
 
 function App() {
 
   return (
     <>
-     <Dashboard/>
+     <GenerateDocument/>
     </>
   )
 }

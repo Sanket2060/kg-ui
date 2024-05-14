@@ -2,6 +2,7 @@ import React from "react";
 import search from "../assets/search.png";
 import rings from "../assets/rings.png";
 import moon2 from "../assets/moon2.png";
+import Select from "./Select";
 function DashboardNavbar() {
   return (
     <div className="w-full h-56 mt-10 px-14 font-Poppins text-[#30455E] font-medium">
@@ -30,20 +31,7 @@ function DashboardNavbar() {
       <div className="text-base ">
         <div className="mb-4 text-base">Select Your Location</div>
         <div className="flex">
-          <div className="w-fit  rounded-xl mr-12">
-            <select className=" block appearance-none w-full h-10 bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500">
-              <option value="" disabled selected>
-                Province
-              </option>
-              <option>Bagmati</option>
-              <option>Gandaki</option>
-              <option>Lumbini</option>
-              <option>Karnali</option>
-              <option>Sudurpashchim</option>
-              <option>Madhesh</option>
-              <option>Province 1</option>
-            </select>
-          </div>
+          <Select/>
           <div className="w-fit rounded-xl mr-12">
             <select className=" block appearance-none w-full  h-10 bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500">
               <option value="" disabled selected>
