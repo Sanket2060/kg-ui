@@ -1,10 +1,10 @@
 import React from "react";
 
-function Input({ placeholder, special,name }) {
+function Input({ placeholder, special,name,type='text' }) {
   return (
     <>
       <input
-        type="text"
+        type={type}
         name={name}
         id=""
         placeholder={placeholder}
