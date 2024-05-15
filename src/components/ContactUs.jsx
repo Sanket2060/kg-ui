@@ -1,46 +1,39 @@
 import React from "react";
 import map from "../assets/map.png";
 import Input from "./Input";
+
 function ContactUs() {
   return (
-    <div className=" services font-Poppins text-[#30455E] mx-10 mb-20">
-      <div className="text-center  font-semibold text-[48px] leading-[72px] mb-10">
+    <div className="services font-Poppins text-[#30455E] mx-5 lg:mx-10 mb-20">
+      <div className="text-center font-semibold text-xl largemobiles:text-2xl lg:text-3xl mb-10">
         Contact Us
       </div>
-      <div className="contactus-content flex justify-around">
-        <div className="rounded-md">
-          <img src={map} alt="" className="rounded-3xl w-[504px] h-[520px]" />
+      <div className="contactus-content flex flex-col lg:flex-row justify-around items-center">
+        <div className="rounded-md mb-8 lg:mb-0 lg:mr-5 lg:w-[40%]">
+          <img src={map} alt="Map" className="rounded-3xl w-full max-w-[300px] largemobiles:max-w-[400px] lg:max-w-none lg:h-[520px]" />
         </div>
-        <form>
-          <div className="name flex">
-            <div className="firstname mr-40">
+        <form className="flex flex-col justify-between w-full max-w-[400px] largemobiles:max-w-[500px] lg:max-w-none lg:w-[40%]">
+          <div className="name flex flex-col lg:flex-row mb-4 lg:mb-8">
+            <div className="firstname mr-0 lg:mr-4 mb-4 lg:mb-0 w-full">
               <div>First Name</div>
-              <Input placeholder="Sandesh" special='w-60 h-16' name="firstname" />
+              <Input placeholder="Sandesh" special="w-full h-16" name="firstname" />
             </div>
-            <div className="lastname">
+            <div className="lastname w-full">
               <div>Last Name</div>
-              <Input placeholder="Ghimire" special='w-60 h-16' name="lastname" />
+              <Input placeholder="Ghimire" special="w-full h-16" name="lastname" />
             </div>
           </div>
-          <div className="email">
+          <div className="email mb-4 w-full">
             <div>Email Address</div>
-            <Input
-              placeholder="sandeshghimire202@gmail.com"
-              special='w-[643px] h-16'
-              name="email"
-            />
+            <Input placeholder="sandeshghimire202@gmail.com" special="w-full h-16" name="email" />
           </div>
-          <div className="mobile">
+          <div className="mobile mb-4 w-full">
             <div>Mobile No.</div>
-            <Input placeholder="+9779862383881" special='w-[643px] h-16' name="mobile" />
+            <Input placeholder="+9779862383881" special="w-full h-16" name="mobile" />
           </div>
-          <div className="message">
+          <div className="message w-full">
             <div>Message</div>
-            <Input
-              placeholder="Hey!I am Sandesh Ghimire"
-              special='w-[643px] h-44'
-              name="message"
-            />
+            <Input placeholder="Hey! I am Sandesh Ghimire" special="w-full h-44" name="message" />
           </div>
         </form>
       </div>

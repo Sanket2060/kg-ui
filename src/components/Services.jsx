@@ -14,7 +14,7 @@ function Services() {
         <div className="text-center mr-40 font-semibold text-[48px] leading-[72px] mb-8">
           Services
         </div>
-        <div className="flex text-xl justify-around">
+        <div className="flex flex-col flex-wrap *:mb-8 largemobiles:mb-0 largemobiles:flex-row lg:flex-nowrap md:text-sm lg:text-xl justify-around">
           <div className="flex flex-col items-center">
             <img src={policereport} className="w-30 h-28" alt="" />
             <div className="mt-3">Police Report</div>
@@ -37,21 +37,21 @@ function Services() {
           </div>
         </div>
       </div>
-      <div className="about font-Poppins text-center flex flex-col items-center mb-16 ">
-        <div className="text-[48px] leading-[72px] mb-6 font-semibold">
-          About <span className="text-[#6361DC]">Kagazpatra</span>
-        </div>
-        <div className="w-[627px] text-xl leading-[30px]">
-          Kagazpatra is a referral document generator platform, whose main
-          objective to resolve the hassling problem, excessive charge faces by
-          citizen while writing referral’s document.
-        </div>
+      <div className="about font-Poppins text-center flex flex-col items-center mb-16 border-t-[1px]">
+      <div className="text-2xl sm:text-3xl lg:text-[48px] leading-tight sm:leading-[48px] lg:leading-[72px] mb-6 font-semibold">
+        About <span className="text-[#6361DC]">Kagazpatra</span>
       </div>
+      <div className="w-full sm:w-3/4 lg:w-[627px] text-base sm:text-lg lg:text-xl leading-[24px] sm:leading-[28px] lg:leading-[30px] px-4">
+        Kagazpatra is a referral document generator platform, whose main
+        objective is to resolve the hassling problem and excessive charges faced by
+        citizens while writing referral documents.
+      </div>
+    </div>
       <div className="experts font-Poppins text-[48px] leading-[72px] flex flex-col items-center">
-        <div className="font-semibold mb-8">
+        <div className="text-2xl sm:text-3xl lg:text-[48px] leading-tight sm:leading-[48px] lg:leading-[72px] mb-6 font-semibold">
           <span className="text-[#6361DC] font-Poppins">Expert's</span> With Us
         </div>
-        <div className="people flex justify-around  w-screen">
+        <div className="people flex flex-col largemobiles:flex-row largemobiles:flex-wrap  *:mb-10 lg:mb-0 justify-around  w-screen">
           <Person
             name="Abhisekh Shakya"
             place="Inspector,Kathmandu"

@@ -1,27 +1,40 @@
 import React from "react";
 import kaagazpatralogo from "../assets/kaagazpatralogo.png";
 import darkmode from "../assets/darkmode.png";
-function Header() {
+import { IoMdHome } from "react-icons/io";
+import { MdOutlineRoundaboutLeft } from "react-icons/md";
+import { IoBriefcase } from "react-icons/io5";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { useState } from "react";
+function Header({openPopupRegister,openPopupLogin}) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
   return (
     <>
       <header className="font-Poppins text-xl font-medium text-[#30455E] px-4">
-        <div className="flex justify-end items-center h-10">
-          <div className="mr-20">Police Report</div>
+        <div className="lg:flex hidden justify-end items-center h-10 *:hover:cursor-pointer">
+          <div className="mr-20 ">Police Report</div>
           <div className="mr-20">Namsari Kagaz</div>
           <div className="mr-20">Rajinama Kagaz</div>
         </div>
-        <div className="h-20  flex items-center justify-between">
+        <div className="h-20  flex items-center justify-between border-t-[1px]">
           <div>
             <img src={kaagazpatralogo} className="w-40" alt="" />
           </div>
-          <div className="flex justify-between">
+          <div className="justify-between *:hover:cursor-pointer hidden lg:flex">
             <span className="mr-16 ">Home</span>
+            {/* <span className="mr-16 lg:hidden"><IoMdHome size={40}/></span> */}
             <span className="mr-16 ">About</span>
+            {/* <span className="mr-16 lg:hidden"><MdOutlineRoundaboutLeft size={40}/></span> */}
             <span className="mr-16 ">Services</span>
-            <span className="mr-16  w-28 h-8 border-[1px] border-[#30455E] rounded-xl flex justify-center">
+            {/* <span className="mr-16 lg:hidden"><IoBriefcase size={40}/></span> */}
+            <span className="mr-16  w-28 h-8 border-[1px] border-[#30455E] rounded-xl flex justify-center" onClick={openPopupLogin}>
               Login
             </span>
-            <span className="mr-16  w-28 h-8 border-[1px] border-[#30455E] rounded-xl flex justify-center">
+            <span className="mr-16  w-28 h-8 border-[1px] border-[#30455E] rounded-xl flex justify-center" onClick={openPopupRegister}>
               Sign in
             </span>
             <span className=" w-9 mr-20 h-8 border-[1px] border-[#30455E] flex justify-center items-center rounded-lg">
@@ -33,7 +46,62 @@ function Header() {
               />
             </span>
           </div>
+          <div className="lg:hidden mr-4 hover:cursor-pointer">
+              <GiHamburgerMenu size={30} onClick={toggleMenu} />
+            </div>
         </div>
+        {isMenuOpen && (
+          <div className="lg:hidden flex flex-col items-center bg-white py-2 mb-4">
+            <span className="py-2 w-9 h-8 border-[1px] border-[#30455E] flex justify-center items-center rounded-lg hover:cursor-pointer">
+              <img src={darkmode} alt="dark mode image" className="w-6 h-6" />
+            </span>
+            <span
+              className="py-2 flex items-center cursor-pointer"
+              onClick={() => {
+                console.log("Navigate to Home");
+                toggleMenu();
+              }}
+            >
+              Home
+            </span>
+            <span
+              className="py-2 flex items-center cursor-pointer"
+              onClick={() => {
+                console.log("Navigate to About");
+                toggleMenu();
+              }}
+            >
+              About
+            </span>
+            <span
+              className="py-2 flex items-center cursor-pointer"
+              onClick={() => {
+                console.log("Navigate to Services");
+                toggleMenu();
+              }}
+            >
+              Services
+            </span>
+            <span
+              className="py-2 w-28 h-8 border-[1px] border-[#30455E] rounded-xl flex justify-center items-center cursor-pointer"
+              onClick={() => {
+                openPopupLogin();
+                toggleMenu();
+              }}
+            >
+              Login
+            </span>
+            <span
+              className="py-2 w-28 h-8 border-[1px] border-[#30455E] rounded-xl flex justify-center items-center cursor-pointer"
+              onClick={() => {
+                openPopupRegister();
+                toggleMenu();
+              }}
+            >
+              Sign in
+            </span>
+          </div>
+        )}
       </header>
     </>
   );

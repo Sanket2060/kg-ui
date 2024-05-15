@@ -3,7 +3,7 @@ import kaagazpatralogo from "../assets/kaagazpatralogo.png";
 import Input from "./Input";
 import Button from "./Button";
 import cross from "../assets/cross.png";
-const PopupRegister = ({ isOpen = true, onClose }) => {
+const PopupRegister = ({ isOpen, onClose }) => {
   return (
     <>
       {isOpen && (

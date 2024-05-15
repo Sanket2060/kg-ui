@@ -3,7 +3,7 @@ import womenwriter from "../assets/womenwriter.png";
 function Main() {
   return (
     <>
-      <div className="w-full h-[750px] relative flex justify-center items-center font-Poppins">
+      <div className="w-full h-[750px] relative flex justify-center items-center font-Poppins border-y-[1px]">
         <div class="w-80 h-80 absolute top-0 left-0 rounded-br-full bg-gradient-to-b from-white to-purple-500"></div>
         <div class="w-80 h-80 absolute right-0 bottom-0 rounded-tl-full bg-gradient-to-br from-white to-purple-500"></div>
         <div className="content flex flex-col items-center">

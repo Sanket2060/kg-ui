@@ -3,15 +3,15 @@ import kaagazpatralogo from "../assets/kaagazpatralogo.png";
 import Input from "./Input";
 import Button from "./Button";
 import cross from "../assets/cross.png";
-const PopupLogin = ({ isOpen = false, onClose }) => {
+const PopupLogin = ({ isOpen, onClose }) => {
   return (
     <>
       {isOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 font-Poppins">
           {/* yo line le kasari purai select garexa?? */}
 
-          <div className="bg-white relative rounded-lg py-14 w-[80%] h-[90%] flex flex-col items-center font-medium">
-            <div className="flex justify-end absolute right-5 top-5">
+          <div className="bg-white relative rounded-lg py-14 w-[60%] h-[95%] flex flex-col items-center font-medium">
+            <div className="flex justify-end absolute right-5 top-5 hover:cursor-pointer" onClick={onClose}>
               <img src={cross} className="w-4 h-4" alt="" srcset="" />
             </div>
             <img src={kaagazpatralogo} className="w-96 h-34" alt="" srcset="" />

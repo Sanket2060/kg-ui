@@ -7,22 +7,32 @@ import Footer from '../components/Footer'
 import PopupRegister from "../components/PopupRegister";
 import PopupLogin from "../components/PopupLogin";
 function Home() {
-    const [isPopupOpen,setIsPopupOpen]=useState(false);
-    const openPopup=()=>{
-        setIsPopupOpen(true);
+    const [isPopupOpenRegister,setIsPopupOpenRegister]=useState(false);
+    const [isPopupOpenLogin,setIsPopupOpenLogin]=useState(false);
+
+    const openPopupRegister=()=>{
+        setIsPopupOpenRegister(true);
     }
-    const closePopup=()=>{
-        setIsPopupOpen(false);
+    const openPopupLogin=()=>{
+      setIsPopupOpenLogin(true);
+  }
+    const closePopupRegister=()=>{
+        setIsPopupOpenRegister(false);
     }
+    const closePopupLogin=()=>{
+      setIsPopupOpenLogin(false);
+  }
   return (
     <>
-      <Header  />
+    <div className={`${isPopupOpenLogin||isPopupOpenRegister?'blur-[3px]':''}`}>
+      <Header openPopupRegister={openPopupRegister} openPopupLogin={openPopupLogin}  />
       <Main />
       <Services />
       <ContactUs />
       <Footer />
-      <PopupRegister />
-      <PopupLogin/>
+    </div>
+      <PopupRegister isOpen={isPopupOpenRegister} onClose={closePopupRegister} />
+      <PopupLogin isOpen={isPopupOpenLogin} onClose={closePopupLogin}/>
     </>
   );
 }
