@@ -4,13 +4,15 @@ import DashboardNavbar from '../../components/DashboardNavbar'
 import PrintingDocumentComp from '../../components/PrintingDocumentComp'
 function PrintingDocument() {
   return (
-    <div className="flex w-screen">
-    <Sideboard />
-    <div className="w-[80%]">
-      <DashboardNavbar />
-      <PrintingDocumentComp/>
+    <div className="flex w-screen h-screen">
+      <div className="md:w-[30%]  lg:w-[20%] h-full">
+       <Sideboard />
+      </div>
+      <div className=" md:w-[70%] lg:w-[80%] xl:w-[80%] h-full">
+        <DashboardNavbar />
+        <PrintingDocumentComp/>
+      </div>
     </div>
-  </div>
 )
 }
 

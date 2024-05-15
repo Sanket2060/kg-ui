@@ -5,9 +5,11 @@ import DashboardNavbar from '../../components/DashboardNavbar'
 
 function GenerateDocument() {
   return (
-    <div className="flex w-screen">
-    <Sideboard />
-    <div className="w-[80%]">
+    <div className="flex w-screen h-screen">
+    <div className="md:w-[30%]  lg:w-[20%] h-full">
+     <Sideboard />
+    </div>
+    <div className=" md:w-[70%] lg:w-[80%] xl:w-[80%] h-full">
       <DashboardNavbar />
       <GenerateDocumentComp/>
     </div>

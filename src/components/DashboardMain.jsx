@@ -11,8 +11,8 @@ import Task from "./Task.jsx";
 
 function DashboardMain() {
   return (
-    <div className="font-Poppins text-base font-medium mx-28">
-      <div className="grid grid-cols-4 h-96">
+    <div className="font-Poppins text-base font-medium md:mx-16 lg:mx-20 xl:mx-28 ">
+      <div className="grid grid-cols-3 md:grid-cols-2  xl:grid-cols-4 gap-y-6 h-fit">
         <Task taskimage={task1} text="Lekhapadi" />
         <Task taskimage={task2} text="Police Report"/>
         <Task taskimage={task3} text="Yatayat Karyalaya"/>
