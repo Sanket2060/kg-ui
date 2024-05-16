@@ -11,31 +11,34 @@ function Services() {
   return (
     <div className="services-component mb-10">
       <div className=" services font-Poppins text-[#30455E] mb-12">
-        <div className="text-center mr-40 font-semibold text-[48px] leading-[72px] mb-8">
+        <div className="text-center font-semibold text-[48px] leading-[72px] mb-8">
           Services
         </div>
-        <div className="flex flex-col flex-wrap *:mb-8 largemobiles:mb-0 largemobiles:flex-row lg:flex-nowrap md:text-sm lg:text-xl justify-around">
-          <div className="flex flex-col items-center">
-            <img src={policereport} className="w-30 h-28" alt="" />
-            <div className="mt-3">Police Report</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <img src={irddocument} alt="" className="w-30 h-28" />
-            <div className="mt-3">IRD Document</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <img src={irddocument} alt="" className="w-30 h-28" />
-            <div className="mt-3">Malpot Document</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <img src={irddocument} alt="" className="w-30 h-28 " />
-            <div className="mt-3">Municipality Document</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <img src={irddocument} alt="" className="w-30 h-28" />
-            <div className="mt-3">Ward Document</div>
-          </div>
-        </div>
+        <div className="services font-Poppins text-[#30455E] mb-12">
+  <div className="flex flex-col items-center flex-wrap *:mb-4 largemobiles:mb-0 lg:items-start largemobiles:flex-row lg:flex-nowrap md:text-sm lg:text-xl justify-around">
+    <div className="flex flex-col items-center w-40 h-48">
+      <img src={policereport} className="w-30 h-28" alt="" />
+      <div className="mt-3 text-center">Police Report</div>
+    </div>
+    <div className="flex flex-col items-center w-40 h-48">
+      <img src={irddocument} alt="" className="w-30 h-28" />
+      <div className="mt-3 text-center">IRD Document</div>
+    </div>
+    <div className="flex flex-col items-center w-40 h-48">
+      <img src={irddocument} alt="" className="w-30 h-28" />
+      <div className="mt-3 text-center">Malpot Document</div>
+    </div>
+    <div className="flex flex-col items-center w-40 h-48">
+      <img src={irddocument} alt="" className="w-30 h-28" />
+      <div className="mt-3 text-center">Municipality Document</div>
+    </div>
+    <div className="flex flex-col items-center w-40 h-48">
+      <img src={irddocument} alt="" className="w-30 h-28" />
+      <div className="mt-3 text-center">Ward Document</div>
+    </div>
+  </div>
+</div>
+
       </div>
       <div className="about font-Poppins text-center flex flex-col items-center mb-16 border-t-[1px]">
       <div className="text-2xl sm:text-3xl lg:text-[48px] leading-tight sm:leading-[48px] lg:leading-[72px] mb-6 font-semibold">
@@ -51,7 +54,7 @@ function Services() {
         <div className="text-2xl sm:text-3xl lg:text-[48px] leading-tight sm:leading-[48px] lg:leading-[72px] mb-6 font-semibold">
           <span className="text-[#6361DC] font-Poppins">Expert's</span> With Us
         </div>
-        <div className="people flex flex-col largemobiles:flex-row largemobiles:flex-wrap  *:mb-10 lg:mb-0 justify-around  w-screen">
+        <div className="people flex flex-col items-center largemobiles:items-start largemobiles:flex-row largemobiles:flex-wrap  *:mb-10 lg:mb-0 justify-around  w-screen">
           <Person
             name="Abhisekh Shakya"
             place="Inspector,Kathmandu"

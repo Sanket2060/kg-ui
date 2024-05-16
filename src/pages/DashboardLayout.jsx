@@ -1,19 +1,20 @@
 import React from "react";
 import Sideboard from "../components/Sideboard";
 import DashboardNavbar from "../components/DashboardNavbar";
-import DashboardMain from "../components/DashboardMain";
-function Dashboard() {
+import { Outlet } from "react-router-dom";
+
+function DashboardLayout() {
   return (
     <div className="flex w-screen h-screen">
       <div className="md:w-[30%]  lg:w-[20%] h-full">
-       <Sideboard />
+        <Sideboard />
       </div>
-      <div className=" md:w-[70%] lg:w-[80%] xl:w-[80%] h-full">
+      <div className="md:w-[70%] lg:w-[80%] xl:w-[80%] h-full">
         <DashboardNavbar />
-        <DashboardMain/>
+        <Outlet /> {/* This is where the nested routes will be rendered */}
       </div>
     </div>
   );
 }
 
-export default Dashboard;
+export default DashboardLayout;
