@@ -47,17 +47,14 @@ function Header({ openPopupRegister, openPopupLogin }) {
               Sign in
             </span>
             <span className="w-9 mr-20 h-8 border-[1px] border-[#30455E] flex justify-center items-center rounded-lg">
-              <img
-                src={darkmode}
-                alt="dark mode image"
-                className="w-6 h-6"
-              />
+              <img src={darkmode} alt="dark mode image" className="w-6 h-6" />
             </span>
           </div>
           <div className="lg:hidden mr-4 hover:cursor-pointer">
             <GiHamburgerMenu size={30} onClick={toggleMenu} />
           </div>
         </div>
+
         {isMenuOpen && (
           <div className="fixed top-0 left-0 w-full h-full bg-white flex flex-col items-center justify-center z-50">
             <AiOutlineClose
@@ -78,7 +75,7 @@ function Header({ openPopupRegister, openPopupLogin }) {
               Services
             </Link>
             <span
-              className="mb-4 w-28 h-8 border-[1px] border-[#30455E] rounded-xl flex justify-center items-center cursor-pointer"
+              className="mb-4 w-28 h-8  border-[1px] border-[#30455E] rounded-xl flex justify-center items-center cursor-pointer"
               onClick={() => {
                 openPopupLogin();
                 toggleMenu();
@@ -103,4 +100,3 @@ function Header({ openPopupRegister, openPopupLogin }) {
 }
 
 export default Header;
-

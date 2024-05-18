@@ -11,15 +11,15 @@ import Task from "./Task.jsx";
 
 function DashboardMain() {
   return (
-    <div className="font-Poppins text-base font-medium md:mx-16 lg:mx-20 xl:mx-28 ">
-      <div className="grid grid-cols-3 md:grid-cols-2  xl:grid-cols-4 gap-y-6 h-fit">
+    <div className="font-Poppins text-base font-medium mx-4 sm:mx-8 md:mx-16 lg:mx-20 xl:mx-28 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-y-6">
         <Task taskimage={task1} text="Lekhapadi" />
-        <Task taskimage={task2} text="Police Report"/>
-        <Task taskimage={task3} text="Yatayat Karyalaya"/>
-        <Task taskimage={task4} text="Woda Karyalaya"/>
-        <Task taskimage={task5} text="Nagarpalika"/>
-        <Task taskimage={task6} text="Karmachari Sanchya kosh"/>
-        <Task taskimage={task7} text="Yatayat Karyalaya"/>
+        <Task taskimage={task2} text="Police Report" />
+        <Task taskimage={task3} text="Yatayat Karyalaya" />
+        <Task taskimage={task4} text="Woda Karyalaya" />
+        <Task taskimage={task5} text="Nagarpalika" />
+        <Task taskimage={task6} text="Karmachari Sanchya kosh" />
+        <Task taskimage={task7} text="Yatayat Karyalaya" />
         <Task taskimage={task8} text="Woda Karyalaya" />
       </div>
     </div>

@@ -6,10 +6,10 @@ import { Outlet } from "react-router-dom";
 function DashboardLayout() {
   return (
     <div className="flex w-screen h-screen">
-      <div className="md:w-[30%]  lg:w-[20%] h-full">
+      <div className=" h-full">
         <Sideboard />
       </div>
-      <div className="md:w-[70%] lg:w-[80%] xl:w-[80%] h-full">
+      <div className=" h-full  overflow-auto">
         <DashboardNavbar />
         <Outlet /> {/* This is where the nested routes will be rendered */}
       </div>
