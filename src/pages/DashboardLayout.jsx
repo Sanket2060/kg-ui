@@ -9,7 +9,7 @@ function DashboardLayout() {
       <div className=" h-full">
         <Sideboard />
       </div>
-      <div className=" h-full  overflow-auto">
+      <div className=" h-full w-full overflow-auto">
         <DashboardNavbar />
         <Outlet /> {/* This is where the nested routes will be rendered */}
       </div>

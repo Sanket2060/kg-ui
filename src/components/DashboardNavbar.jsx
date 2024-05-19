@@ -27,7 +27,7 @@ function DashboardNavbar() {
     // Add more options as needed
   ];
   return (
-    <div className="w-full mb-10 mt-10 px-14 font-Poppins text-[#30455E] font-medium">
+    <div className="w-full mb-10 mt-10 lg:px-14 md:px-10 px-4 font-Poppins text-[#30455E] font-medium">
       <div className="flex flex-wrap lg:flex-nowrap justify-between  items-center mb-6">
         <div className="mr-10">
           <div className="text-2xl">Sandesh Ghimire</div>
