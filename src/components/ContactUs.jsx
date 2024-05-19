@@ -29,7 +29,7 @@ function ContactUs() {
           </div>
           <div className="mobile mb-4 w-full">
             <div>Mobile No.</div>
-            <Input placeholder="+9779862383881" special="w-full h-16" name="mobile" />
+            <Input placeholder="9862383881" special="w-full h-16" name="mobile" />
           </div>
           <div className="message w-full">
             <div>Message</div>

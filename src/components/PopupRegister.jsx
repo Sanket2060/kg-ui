@@ -5,16 +5,23 @@ import Input from "./Input";
 import Button from "./Button";
 import cross from "../assets/cross.png";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const PopupRegister = ({ isOpen, onClose }) => {
-  const { register, formState,handleSubmit } = useForm();
+  const { register, formState, handleSubmit, getValues } = useForm();
   const { errors } = formState;
-  const authenticate = async ({ firstName, lastName, mobile, email, password }) => {
+  const navigate=useNavigate();
+  const authenticate = async ({
+    firstName,
+    lastName,
+    mobile,
+    email,
+    password,
+  }) => {
     try {
       // setLoader(true);
       console.log(email, password);
       const response = await axios.post(
-        "https://api.khana.me/api/v1/users/register",
+        "http://localhost:9005/api/v1/users/register",
         {
           firstName,
           lastName,
@@ -24,11 +31,12 @@ const PopupRegister = ({ isOpen, onClose }) => {
         }
       );
       // handle success
-      console.log(response.data);
-      console.log(response.data.data.userId);
+      console.log(response.data.data);
+      navigate('/dashboard');
     } catch (error) {
       // handle error
-      console.log(error.message);
+      console.log(error);
+      console.log(error.response.message);
     }
   };
 
@@ -45,86 +53,139 @@ const PopupRegister = ({ isOpen, onClose }) => {
             </div>
             <img src={kaagazpatralogo} className="w-96 h-34" alt="Logo" />
             <div className="text-[#6361DC] text-base">Register new account</div>
-              <form
-                className="flex flex-col items-center mb-6 w-full"
-                onSubmit={handleSubmit(authenticate)}
-              >
-                <div className="name flex flex-col sm:flex-row justify-between w-full">
-                  <div className="firstname w-full sm:w-[40%] ">
-                    <div>First Name</div>
-                    <Input
-                      placeholder="Sandesh"
-                      special="w-full h-16"
-                      name="firstName"
-                      patternValue={/^[^0-9]*$/}
-                      patternMessage="First name shouldn't contain numbers"
-                      required
-                    />
-                  </div>
-                  <div className="lastname w-full sm:w-[40%]">
-                    <div>Last Name</div>
-                    <Input
-                      placeholder="Ghimire"
-                      special="w-full h-16"
-                      name="lastName"
-                      patternValue={/^[^0-9]*$/}
-                      patternMessage="Last name shouldn't contain numbers"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="email w-full">
-                  <div>Email Address</div>
-                  <Input
-                    placeholder="sandeshghimire202@gmail.com"
-                    special="w-full h-16"
-                    name="email"
-                    type="email"
-                    patternValue={/^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$/}
-                    patternMessage="Enter a valid email"
-                    required
+            <form
+              className="flex flex-col items-center mb-6 w-full *:mb-5"
+              onSubmit={handleSubmit(authenticate)}
+            >
+              <div className="name flex flex-col sm:flex-row justify-between w-full">
+                <div className="firstname w-full sm:w-[40%] ">
+                  <div>First Name</div>
+                  <input
+                    type="text"
+                    name="firstName"
+                    id=""
+                    placeholder="Sandesh"
+                    className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                    {...register(`${"firstName"}`, {
+                      required: `${"firstName"} is required`,
+                      pattern: {
+                        value: /(^[^\d]*$)/,
+                        message: "First name shouldn't contain numbers",
+                      },
+                    })}
                   />
+                  {errors.firstName && (
+                    <p className="text-red-500">{errors.firstName.message}</p>
+                  )}
                 </div>
-                <div className="mobile w-full">
-                  <div>Mobile No.</div>
-                  <Input
-                    placeholder="+9779862383881"
-                    special="w-full h-16"
-                    name="mobile"
-                    patternValue={/^\d{10}$/}
-                    patternMessage="Mobile should contain 10 digits"
-                    required
+                <div className="lastname w-full sm:w-[40%]">
+                  <div>Last Name</div>
+                  <input
+                    type="text"
+                    name="lastName"
+                    id=""
+                    placeholder="Ghimire"
+                    className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                    {...register(`${"lastName"}`, {
+                      required: `${"lastName"} is required`,
+                      pattern: {
+                        value: /(^[^\d]*$)/,
+                        message: "Last name shouldn't contain numbers",
+                      },
+                    })}
                   />
+                  {errors.lastName && (
+                    <p className="text-red-500">{errors.lastName.message}</p>
+                  )}
                 </div>
-                <div className="password w-full">
-                  <div>Password</div>
-                  <Input
-                    placeholder="**********"
-                    special="w-full h-16"
-                    name="password"
-                    type="password"
-                    patternValue={/^(?=.*[A-Z])(?=.*\d).{8,}$/}
-                    patternMessage="Password should contain 8 characters with 1 digit and 1 uppercase character"
-                    required
-                  />
-                </div>
-                <div className="confirmpassword w-full">
-                  <div>Confirm Password</div>
-                  <Input
-                    placeholder="***********"
-                    special="w-full h-16"
-                    name="confirmPassword"
-                    type="password"
-                    required
-                  />
-                </div>
-                <Button
-                  text="Register"
-                  special="w-80 h-16 largemobiles:w-80 mobile:w-60"
+              </div>
+              <div className="email w-full">
+                <div>Email Address</div>
+                <input
+                  type="email"
+                  name="email"
+                  id=""
+                  placeholder="sandeshghimire202@gmail.com"
+                  className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                  {...register(`${"email"}`, {
+                    required: `${"email"} is required`,
+                    pattern: /^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$/,
+                    message: "Enter a valid email",
+                  })}
                 />
-              </form>
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
+              </div>
+              <div className="mobile w-full">
+                <div>Mobile No.</div>
+                <input
+                  type="text"
+                  name="mobile"
+                  id=""
+                  placeholder="9862383881"
+                  className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                  {...register(`${"mobile"}`, {
+                    required: `${"mobile"} is required`,
+                    pattern: {
+                      value: /^\d{10}$/,
+                      message: "Mobile should contain 10 digits",
+                    },
+                  })}
+                />
+                {errors.mobile && (
+                  <p className="text-red-500">{errors.mobile.message}</p>
+                )}
+              </div>
+              <div className="password w-full">
+                <div>Password</div>
+                <input
+                  type="password" // Set type to password for masking
+                  name="password"
+                  id=""
+                  placeholder="Enter Password"
+                  className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                  {...register(`${"password"}`, {
+                    required: "Password is required",
+                    minLength: {
+                      value: 8,
+                      message: "Password must be at least 8 characters long",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
+              </div>
+              <div className="confirmpassword w-full">
+                <div>Confirm Password</div>
+                <input
+                  type="password" // Set type to password for masking
+                  name="confirmPassword"
+                  id=""
+                  placeholder="Confirm Password"
+                  className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                  {...register(`${"confirmPassword"}`, {
+                    required: "Password is required",
+                    validate: (value) =>
+                      value === getValues("password") ||
+                      "Passwords do not match",
+                  })}
+                />
+                {errors.confirmPassword && (
+                  <p className="text-red-500">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
+              </div>
+              <Button
+                text="Register"
+                special="w-80 h-16 largemobiles:w-80 mobile:w-60"
+              />
+            </form>
             <div className="font-semibold mb-10">
-              Already Have an account? <span className="text-[#6361DC]">Log in</span>
+              Already Have an account?{" "}
+              <span className="text-[#6361DC]">Log in</span>
             </div>
           </div>
         </div>
