@@ -6,11 +6,31 @@ import group from "../assets/group.png";
 import pen from "../assets/pen.png";
 import { Link } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
-
+import { logout } from "../features/user/authslice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 function Sideboard() {
   const [activeLink, setActiveLink] = useState("");
   const [showMenu, setShowMenu] = useState(false);
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logoutUser = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:9005/api/v1/users/logout",
+        {},
+        {
+          withCredentials: true, // Include credentials (cookies) in the request
+        }
+      );
+      console.log(response);
+      dispatch(logout());
+      navigate("/");
+    } catch (error) {
+      console.log("Error at logging user out:", error);
+    }
+  };
   const handleLinkClick = (link) => {
     setActiveLink(link);
     setShowMenu(false); // Close the menu after clicking a link
@@ -141,7 +161,10 @@ function Sideboard() {
           </Link>
         </div>
         <div className="hidden md:block">
-          <div className="flex  items-center pl-10 border-t-2 w-full py-2 hover:cursor-pointer">
+          <div
+            className="flex  items-center pl-10 border-t-2 w-full py-2 hover:cursor-pointer"
+            onClick={logoutUser}
+          >
             <div className="mr-5">Log out</div>
             <img src={logoutbuttonimage} className="w-4 h-4" alt="" />
           </div>
@@ -195,8 +218,10 @@ function Sideboard() {
                   </div>
                 </Link>
               </div>
-              <div className="flex items-center pl-10 border-t-2 w-full py-2 hover:cursor-pointer">
-                <div className="mr-5">Log out</div>
+              <div className="flex items-center pl-10 border-t-2 w-full py-2 hover:cursor-pointer" onClick={logoutUser}>
+                <div className="mr-5" >
+                  Log out
+                </div>
                 <img src={logoutbuttonimage} className="w-4 h-4" alt="" />
               </div>
             </div>
