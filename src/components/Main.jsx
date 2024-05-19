@@ -3,8 +3,8 @@ import womenwriter from "../assets/womenwriter.png";
 function Main() {
   return (
     <div className="w-full lg:h-[90vh] h-[93vh] relative font-Poppins border-y-[1px] flex justify-center items-center overflow-hidden">
-      <div className="w-[40vw] md:w-80 h-[40vw] md:h-80 lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem] absolute top-0 left-0 rounded-br-full bg-gradient-to-b from-white to-purple-500"></div>
-      <div className="w-[40vw] md:w-80 h-[40vw] md:h-80 lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem] absolute right-0 bottom-0 rounded-tl-full bg-gradient-to-br from-white to-purple-500"></div>
+      <div className="w-[40vw] md:w-80 h-[40vw] md:h-80 lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem] absolute top-0 left-0 rounded-br-full bg-gradient-to-b from-white via-[#9A98EB]  to-[#9A98EB]"></div>
+      <div className="w-[40vw] md:w-80 h-[40vw] md:h-80 lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem] absolute right-0 bottom-0 rounded-tl-full bg-gradient-to-b from-white to-[#9A98EB]"></div>
       <div className="content flex flex-col items-start sm:items-center sm:m-0 m-5 ">
         <div className="font-semibold text-5xl mb-4">
           Be Your <span className="text-[#6361DC]">Kagazpatra</span> Writer

@@ -29,7 +29,7 @@ function PrintingDocumentComp() {
             <Button text="Print" special="w-44 h-10 rounded-xl" />
             <Button
               text="Download"
-              special="md:w-44 h-10 rounded-xl text-[#000] bg-white  border border-[#E2E7ED]"
+              special="md:w-44 h-10 rounded-xl text-[#000000] bg-white  border border-[#E2E7ED]"
             />
           </div>
         </div>
