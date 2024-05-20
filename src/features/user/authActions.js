@@ -1,6 +1,6 @@
 // authActions.js
 import axios from 'axios';
-import { login, logout } from './authslice.js';
+import { login, logout } from './authSlice.js';
 
 export const fetchUserData = () => {
   return async (dispatch) => {
