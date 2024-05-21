@@ -30,12 +30,10 @@ function App() {
       .split("; ")
       .find((row) => row.startsWith("refreshToken="));
 
-    console.log("Access and refresh token", accessToken, refreshToken);
 
     if (accessToken && refreshToken) {
       dispatch(fetchUserData(navigate));
     } else {
-      console.log("I arrived at else part");
       dispatch(logout());
       // Make sure to add server-side logout logic here
     }

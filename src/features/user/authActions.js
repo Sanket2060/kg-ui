@@ -10,7 +10,6 @@ export const fetchUserData = (navigate) => {
           withCredentials: true,
         }
       );
-      console.log("Data fetched from backend:", response.data.data);
       dispatch(login(response.data.data));
       navigate('/dashboard');
     } catch (error) {
