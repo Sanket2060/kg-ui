@@ -14,7 +14,7 @@ import Kuruwa from "./pages/utils/Kuruwa";
 import NotaryPublic from "./pages/utils/NotaryPublic";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { fetchUserData } from './features/user/authActions.js';
-import { logout } from "./features/user/authslice.js";
+import { logout } from "./features/user/authSlice.js";
 function App() {
   // const { isAuthenticated } = useSelector((state) => state.auth);
   const dispatch=useDispatch();

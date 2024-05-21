@@ -6,7 +6,7 @@ import group from "../assets/group.png";
 import pen from "../assets/pen.png";
 import { Link } from "react-router-dom";
 import { HiMenu, HiX } from "react-icons/hi";
-import { logout } from "../features/user/authslice";
+import { logout } from "../features/user/authSlice.js";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";

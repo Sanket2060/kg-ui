@@ -6,7 +6,7 @@ import cross from "../assets/cross.png";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { login } from "../features/user/authslice.js";
+import { login } from "../features/user/authSlice.js";
 import axios from "axios";
 
 const PopupLogin = ({ isOpen, onClose }) => {
