@@ -80,7 +80,7 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                 </div>
               </div>
             </div>
-            <div className="flex w-full  justify-end">
+            <div className="flex w-full  justify-end" onClick={onClose}>
               <Button text="Submit" special="w-40 h-9 rounded-xl p-2" />
             </div>
           </div>
