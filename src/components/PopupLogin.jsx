@@ -6,7 +6,7 @@ import cross from "../assets/cross.png";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { login } from "../features/user/authSlice.js";
+import { login, logout } from "../features/user/authSlice.js";
 import axios from "axios";
 
 const PopupLogin = ({ isOpen, onClose }) => {
@@ -33,13 +33,22 @@ const PopupLogin = ({ isOpen, onClose }) => {
         }
       );
       setLoginError(""); // Clear login error
-      console.log("response", response);
-      dispatch(login(response.data));
-      if (response) {
-        navigate("/dashboard");
-      }
+      navigate("/dashboard");
     } catch (error) {
+      console.log("Error at logging user ",error);
       setLoginError(error?.response?.data?.message || "An error occurred");
+    }
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/v1/getDetails/fetchUserProfileDetails`,
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(login(response.data.userProfile));
+    } catch (error) {
+      console.log("error fetching User Details", error);
+      dispatch(logout()); //khali garey paxi afai logout hunxa ra??->Yes,protected route ko kamal ho
     }
   };
 

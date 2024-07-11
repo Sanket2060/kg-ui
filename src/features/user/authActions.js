@@ -5,14 +5,16 @@ export const fetchUserData = (navigate) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        "http://localhost:9005/api/v1/users/getUserDetails",
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/v1/getDetails/fetchUserProfileDetails`,
         {
           withCredentials: true,
         }
       );
-      dispatch(login(response.data.data));
+      console.log(response,"response");
+      dispatch(login(response.data.userProfile));
       navigate('/dashboard');
     } catch (error) {
+      console.log("error at authActions",error);
       dispatch(logout());
     }
   };

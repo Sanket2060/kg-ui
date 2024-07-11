@@ -32,14 +32,22 @@ const PopupRegister = ({ isOpen, onClose }) => {
         // mobile,
       });
       // handle success
-      console.log(response);
-      dispatch(login(response.data.data));
-      if (response) {
-        navigate("/dashboard");
-      }
+      navigate("/dashboard");
     } catch (error) {
       // handle error
-      console.log(error);
+      console.log("Error registering user",error);
+    }
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/v1/getDetails/fetchUserProfileDetails`,
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(login(response.data.userProfile));
+    } catch (error) {
+      console.log("Error fetching data of user", error);
+      dispatch(logout()); //khali garey paxi afai logout hunxa ra??->Yes,protected route ko kamal ho
     }
   };
 
