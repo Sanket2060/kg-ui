@@ -33,10 +33,10 @@ function DashboardNavbar() {
       <div className="flex flex-wrap lg:flex-nowrap justify-between  items-center mb-6">
         <div className="mr-10">
           <div className="text-2xl">
-            <span className="mr-2">{user.firstName}</span>
-            <span>{user.lastName}</span>
+            <span className="mr-2">{user?.firstName || 'Sanket'}</span>
+            <span>{user?.lastName || 'Karki'}</span>
             </div>
-          <div className="text-sm">{user?.email}</div>
+          <div className="text-sm">{user?.email || 'sanketgbs.21@gmail.com'}</div>
         </div>
         <div className="flex pt-5 lg:mt-0 w-full gap-8 justify-between lg:justify-end">
           <div className="w-52  h-10 border-2 border-[#E2E7ED] flex items-center p-2 rounded-xl ">
@@ -55,7 +55,7 @@ function DashboardNavbar() {
           </div>
         </div>
       </div>
-      <div className="text-base ">
+      {/* <div className="text-base ">
         <div className="mb-4 text-base">Select Your Location</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <Select type="Province" options={provinceOptions} />
@@ -66,7 +66,7 @@ function DashboardNavbar() {
           />
           <Select type="Ward" options={wardOptions} />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

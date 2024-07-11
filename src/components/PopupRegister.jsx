@@ -6,10 +6,14 @@ import Button from "./Button";
 import cross from "../assets/cross.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 const PopupRegister = ({ isOpen, onClose }) => {
+  const backend_url = import.meta.env.VITE_REACT_APP_BASE_URL;
+  console.log("backendurl", backend_url);
   const { register, formState, handleSubmit, getValues } = useForm();
   const { errors } = formState;
-  const navigate=useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const authenticate = async ({
     firstName,
     lastName,
@@ -20,23 +24,30 @@ const PopupRegister = ({ isOpen, onClose }) => {
     try {
       // setLoader(true);
       console.log(email, password);
-      const response = await axios.post(
-        "http://localhost:9005/api/v1/users/register",
-        {
-          firstName,
-          lastName,
-          email,
-          password,
-          mobile,
-        }
-      );
+      const response = await axios.post(`${backend_url}/api/v1/auth/register`, {
+        name: firstName,
+        // lastName,
+        email,
+        password,
+        // mobile,
+      });
       // handle success
-      console.log(response.data.data);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (error) {
       // handle error
-      console.log(error);
-      console.log(error.response.message);
+      console.log("Error registering user",error);
+    }
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/v1/getDetails/fetchUserProfileDetails`,
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(login(response.data.userProfile));
+    } catch (error) {
+      console.log("Error fetching data of user", error);
+      dispatch(logout()); //khali garey paxi afai logout hunxa ra??->Yes,protected route ko kamal ho
     }
   };
 

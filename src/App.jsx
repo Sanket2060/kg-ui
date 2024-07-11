@@ -31,7 +31,7 @@ function App() {
       .find((row) => row.startsWith("refreshToken="));
 
 
-    if (accessToken && refreshToken) {
+    if (accessToken) {
       dispatch(fetchUserData(navigate));
     } else {
       dispatch(logout());
