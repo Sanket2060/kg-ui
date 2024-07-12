@@ -18,13 +18,12 @@ function Sideboard() {
   const logoutUser = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:9005/api/v1/users/logout",
+        "http://localhost:9005/users/logout",
         {},
         {
           withCredentials: true, // Include credentials (cookies) in the request
         }
       );
-      console.log(response);
       dispatch(logout());
       navigate("/");
     } catch (error) {

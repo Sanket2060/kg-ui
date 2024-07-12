@@ -5,12 +5,11 @@ export const fetchUserData = (navigate) => {
   return async (dispatch) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/v1/getDetails/fetchUserProfileDetails`,
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/getDetails/fetchUserProfileDetails`,
         {
           withCredentials: true,
         }
       );
-      console.log(response,"response");
       dispatch(login(response.data.userProfile));
       navigate('/dashboard');
     } catch (error) {

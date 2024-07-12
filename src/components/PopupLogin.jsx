@@ -23,7 +23,7 @@ const PopupLogin = ({ isOpen, onClose }) => {
   const loginUser = async ({ email, password }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/v1/auth/login`,
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/auth/login`,
         {
           email,
           password,
@@ -40,7 +40,7 @@ const PopupLogin = ({ isOpen, onClose }) => {
     }
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/v1/getDetails/fetchUserProfileDetails`,
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/getDetails/fetchUserProfileDetails`,
         {
           withCredentials: true,
         }
