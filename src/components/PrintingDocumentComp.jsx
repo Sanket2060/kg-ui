@@ -21,7 +21,7 @@ function PrintingDocumentComp() {
         </div>
       </div>
       <div className=" lg:ml-24 ">
-        <div className="mb-5">Select Required Documents</div>
+        {/* <div className="mb-5">Select Required Documents</div> */}
 
         <div className="flex flex-wrap">
           <img src={document} alt="" className="w-80 h-[30rem] mr-8" />
