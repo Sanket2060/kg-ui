@@ -7,20 +7,20 @@ import Button from "./Button";
 import { Link } from "react-router-dom";
 import InputGenerateDocument from "./Input-GenerateDocument";
 import { getRequiredFields } from "../api/getRequiredFields";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
 import { generateDocument } from "../api/generateDocument";
 import { useNavigate } from "react-router-dom";
-import {setPdfUrl, clearPdfUrl} from "../features/user/pdfFileSlice"
+import { setPdfUrl, clearPdfUrl } from "../features/user/pdfFileSlice";
 
 function GenerateDocumentComp() {
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { register, formState, handleSubmit, getValues } = useForm();
   const user = useSelector((state) => state.auth.userDetails);
+  const userProvince = user.province;
   const [work, setWork] = useState("");
   const [currentFields, setCurrentFields] = useState([]);
-  const [pdfFile,setpdfFile]=useState();
   const options = [
     { value: "rajinamasifarish", label: "Rajinama Sifarish" },
     { value: "nagariktasifarish", label: "Nagarikta Sifarish" },
@@ -42,7 +42,7 @@ function GenerateDocumentComp() {
     parent: "",
   };
   const submitGenerationDetails = async (data) => {
-    const response = await generateDocument({ ...data, ...user, work });
+    const response = await generateDocument({ ...data, work });
     if (response) {
       console.log("response", response);
       // setpdfFile(response.document.filePath);
