@@ -16,10 +16,15 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { fetchUserData } from "./features/user/authActions.js";
 import { logout } from "./features/user/authSlice.js";
 import { useNavigate } from "react-router-dom";
+import { pdfjs } from "react-pdf";
 function App() {
   // const { isAuthenticated } = useSelector((state) => state.auth);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+    "pdfjs-dist/build/pdf.worker.min.mjs",
+    import.meta.url
+  ).toString();
   useEffect(() => {
     const accessTokenm = document.cookie;
     console.log(accessTokenm);
@@ -29,7 +34,6 @@ function App() {
     const refreshToken = document.cookie
       .split("; ")
       .find((row) => row.startsWith("refreshToken="));
-
 
     if (accessToken) {
       dispatch(fetchUserData(navigate));

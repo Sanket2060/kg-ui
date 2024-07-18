@@ -7,17 +7,20 @@ import Button from "./Button";
 import { Link } from "react-router-dom";
 import InputGenerateDocument from "./Input-GenerateDocument";
 import { getRequiredFields } from "../api/getRequiredFields";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { useForm, FormProvider } from "react-hook-form";
 import { generateDocument } from "../api/generateDocument";
 import { useNavigate } from "react-router-dom";
+import {setPdfUrl, clearPdfUrl} from "../features/user/pdfFileSlice"
 
 function GenerateDocumentComp() {
+  const dispatch=useDispatch();
   const navigate = useNavigate();
   const { register, formState, handleSubmit, getValues } = useForm();
   const user = useSelector((state) => state.auth.userDetails);
   const [work, setWork] = useState("");
   const [currentFields, setCurrentFields] = useState([]);
+  const [pdfFile,setpdfFile]=useState();
   const options = [
     { value: "rajinamasifarish", label: "Rajinama Sifarish" },
     { value: "nagariktasifarish", label: "Nagarikta Sifarish" },
@@ -42,6 +45,8 @@ function GenerateDocumentComp() {
     const response = await generateDocument({ ...data, ...user, work });
     if (response) {
       console.log("response", response);
+      // setpdfFile(response.document.filePath);
+      dispatch(setPdfUrl(response.data.document.filePath));
       navigate("/dashboard/printdocument");
     }
   };
@@ -105,3 +110,5 @@ function GenerateDocumentComp() {
 }
 
 export default GenerateDocumentComp;
+
+//Create redux store for pdf and store from the file.REtrieve at printingdocument and send to pdfComp and use it to render it

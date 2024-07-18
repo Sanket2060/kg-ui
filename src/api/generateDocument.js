@@ -10,7 +10,7 @@ export const generateDocument = async ({
 }) => {
   try {
     const response = await axios.post(
-      `${import.meta.env.VITE_REACT_APP_BASE_URL}/genpdf/Gandaki/Kaski/${work}`,
+      `${import.meta.env.VITE_REACT_APP_BASE_URL}/genpdf/Gandaki/lamjung/${work}`,
       {
         data: {
           parentName,
@@ -27,5 +27,6 @@ export const generateDocument = async ({
     return response;
   } catch (error) {
     console.log("Error at generating document ", error.response.data.error);
+    return false;
   }
 };
