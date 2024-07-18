@@ -33,9 +33,8 @@ const PopupLogin = ({ isOpen, onClose }) => {
         }
       );
       setLoginError(""); // Clear login error
-      navigate("/dashboard");
     } catch (error) {
-      console.log("Error at logging user ",error);
+      console.log("Error at logging user ", error);
       setLoginError(error?.response?.data?.message || "An error occurred");
     }
     try {
@@ -46,6 +45,7 @@ const PopupLogin = ({ isOpen, onClose }) => {
         }
       );
       dispatch(login(response.data.userProfile));
+      navigate("/dashboard");
     } catch (error) {
       console.log("error fetching User Details", error);
       dispatch(logout()); //khali garey paxi afai logout hunxa ra??->Yes,protected route ko kamal ho
