@@ -42,11 +42,13 @@ function Sideboard() {
   return (
     <div className="font-Poppins h-full w-14 sm:w-[18] md:w-[20vw] md:min-w-[16rem]  border-2 sm:text-[10px] md:text-sm relative">
       <header className="py-6 h-[13%] flex justify-between items-center px-3 md:px-0">
+        <Link to='/'>
         <img
           src={kaagazpatralogo}
           className="md:block hidden w-40 h-16"
           alt=""
-        />
+          />
+          </Link>
         <button
           className="block md:hidden focus:outline-none"
           onClick={toggleMenu}

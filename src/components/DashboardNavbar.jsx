@@ -3,9 +3,9 @@ import search from "../assets/search.png";
 import rings from "../assets/rings.png";
 import moon2 from "../assets/moon2.png";
 import Select from "./Select";
-import {  useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 function DashboardNavbar() {
-  const user=useSelector((state)=>state.auth.userDetails);
+  const user = useSelector((state) => state.auth.userDetails);
   const provinceOptions = [
     { value: "province1", label: "Province 1" },
     { value: "province2", label: "Province 2" },
@@ -33,10 +33,12 @@ function DashboardNavbar() {
       <div className="flex flex-wrap lg:flex-nowrap justify-between  items-center mb-6">
         <div className="mr-10">
           <div className="text-2xl">
-            <span className="mr-2">{user?.firstName || 'Sanket'}</span>
-            <span>{user?.lastName || 'Karki'}</span>
-            </div>
-          <div className="text-sm">{user?.email || 'sanketgbs.21@gmail.com'}</div>
+            <span className="mr-2">{user?.user.name}</span>
+            {/* <span>{user?.lastName || "Karki"}</span> */}
+          </div>
+          <div className="text-sm">
+            {user?.user.email || "sanketgbs.21@gmail.com"}
+          </div>
         </div>
         <div className="flex pt-5 lg:mt-0 w-full gap-8 justify-between lg:justify-end">
           <div className="w-52  h-10 border-2 border-[#E2E7ED] flex items-center p-2 rounded-xl ">
