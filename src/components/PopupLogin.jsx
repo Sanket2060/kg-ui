@@ -23,7 +23,7 @@ const PopupLogin = ({ isOpen, onClose }) => {
   const loginUser = async ({ email, password }) => {
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/v1/auth/login`,
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/auth/login`,
         {
           email,
           password,
@@ -33,19 +33,19 @@ const PopupLogin = ({ isOpen, onClose }) => {
         }
       );
       setLoginError(""); // Clear login error
-      navigate("/dashboard");
     } catch (error) {
-      console.log("Error at logging user ",error);
+      console.log("Error at logging user ", error);
       setLoginError(error?.response?.data?.message || "An error occurred");
     }
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/api/v1/getDetails/fetchUserProfileDetails`,
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/getDetails/fetchUserProfileDetails`,
         {
           withCredentials: true,
         }
       );
       dispatch(login(response.data.userProfile));
+      navigate("/dashboard");
     } catch (error) {
       console.log("error fetching User Details", error);
       dispatch(logout()); //khali garey paxi afai logout hunxa ra??->Yes,protected route ko kamal ho

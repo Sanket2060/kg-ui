@@ -17,14 +17,13 @@ function Sideboard() {
   const navigate = useNavigate();
   const logoutUser = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:9005/api/v1/users/logout",
-        {},
-        {
-          withCredentials: true, // Include credentials (cookies) in the request
-        }
-      );
-      console.log(response);
+      // const response = await axios.post(
+      //   "http://localhost:9005/users/logout",
+      //   {},
+      //   {
+      //     withCredentials: true, // Include credentials (cookies) in the request
+      //   }
+      // );
       dispatch(logout());
       navigate("/");
     } catch (error) {

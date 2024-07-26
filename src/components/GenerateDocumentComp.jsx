@@ -1,15 +1,55 @@
 import React from "react";
+import { useState } from "react";
 import Task from "./Task";
 import task1 from "../assets/task1.png";
 import Select from "./Select";
 import Button from "./Button";
 import { Link } from "react-router-dom";
+import InputGenerateDocument from "./Input-GenerateDocument";
+import { getRequiredFields } from "../api/getRequiredFields";
+import { useSelector, useDispatch } from "react-redux";
+import { useForm, FormProvider } from "react-hook-form";
+import { generateDocument } from "../api/generateDocument";
+import { useNavigate } from "react-router-dom";
+import { setPdfUrl, clearPdfUrl } from "../features/user/pdfFileSlice";
+
 function GenerateDocumentComp() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { register, formState, handleSubmit, getValues } = useForm();
+  const user = useSelector((state) => state.auth.userDetails);
+  const userProvince = user.province;
+  const [work, setWork] = useState("");
+  const [currentFields, setCurrentFields] = useState([]);
   const options = [
-    { value: "option1", label: "Option 1" },
-    { value: "option2", label: "Option 2" },
+    { value: "rajinamasifarish", label: "Rajinama Sifarish" },
+    { value: "nagariktasifarish", label: "Nagarikta Sifarish" },
     { value: "option3", label: "Option 3" },
   ];
+
+  const onWorkChange = async (work) => {
+    console.log("work:", work);
+    const Fields = await getRequiredFields(work, user);
+    setWork(work);
+    setCurrentFields(Fields);
+    console.log(Fields);
+  };
+  const placeholderTexts = {
+    parentName: "Ram Bahadur",
+    wardno: "12",
+    fullName: "Sandesh Ghimire",
+    municipality: "Pokhara",
+    parent: "",
+  };
+  const submitGenerationDetails = async (data) => {
+    const response = await generateDocument({ ...data, work });
+    if (response) {
+      console.log("response", response);
+      // setpdfFile(response.document.filePath);
+      dispatch(setPdfUrl(response.data.document.filePath));
+      navigate("/dashboard/printdocument");
+    }
+  };
 
   return (
     <div className="font-Poppins text-base mx-2 lg:ml-24 lg:mr-48  flex flex-col ">
@@ -26,89 +66,49 @@ function GenerateDocumentComp() {
           </div>
         </div>
       </div>
-      <div className=" lg:ml-24 ">
+      <form
+        className=" lg:ml-24"
+        onSubmit={handleSubmit(submitGenerationDetails)}
+      >
         <div className="mb-5">Select Required Documents</div>
         <div className="mb-5">
-          <Select type="Rajinama Sifarish" options={options} special="w-72" />
+          <Select
+            type="Rajinama Sifarish"
+            options={options}
+            special="w-72"
+            onChange={onWorkChange}
+          />
         </div>
-        <div className=" min-h-[20rem] border-[1px] lg:border-black rounded-md mb-6 overflow-auto">
+        {/* <div className=" min-h-[20rem] border-[1px] lg:border-black rounded-md mb-6 overflow-auto"> */}
+        <div className="min-h-[20rem] lg:max-h-[20rem] border-[1px] lg:border-black rounded-md mb-6 overflow-y-auto">
           <div className=" flex ">
-            <form className=" p-6 flex flex-wrap gap-2 ">
-              <div className="mb-2 md:px-6">
-                <label
-                  className="block font-medium text-gray-700 mb-2"
-                  htmlFor="firstName"
-                >
-                  Your First Name*
-                </label>
-                <input
-                  className="max-w-56 h-12 px-3 py-2 border border-gray-300 rounded-xl"
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  placeholder="Sandesh"
-                  required
-                />
-              </div>
-              <div className="mb-2 md:px-6">
-                <label
-                  className="block font-medium text-gray-700 mb-2"
-                  htmlFor="lastName"
-                >
-                  Your Last Name*
-                </label>
-                <input
-                  className="max-w-56 h-12 px-3 py-2 border border-gray-300  rounded-xl"
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  placeholder="Ghimire"
-                  required
-                />
-              </div>
-              <div className="mb-2 md:px-6">
-                <label
-                  className="block font-medium text-gray-700 mb-2"
-                  htmlFor="address"
-                >
-                  Address*
-                </label>
-                <input
-                  className="max-w-56  h-12 px-3 py-2 border border-gray-300 rounded-xl"
-                  type="text"
-                  id="address"
-                  name="address"
-                  placeholder="Sainamana"
-                  required
-                />
-              </div>
-              <div className="mb-2 md:px-6">
-                <label
-                  className="block font-medium text-gray-700 mb-2"
-                  htmlFor="companyName"
-                >
-                  Your Company Name*
-                </label>
-                <input
-                  className="max-w-56 h-12 px-3 py-2 border border-gray-300 rounded-xl"
-                  type="text"
-                  id="companyName"
-                  name="companyName"
-                  placeholder="Infosys Pvt.Ltd"
-                  required
-                />
-              </div>
-            </form>
+            <div className=" p-6 flex flex-wrap gap-2 ">
+              {currentFields?.map((field) => {
+                return (
+                  <InputGenerateDocument
+                    inputText={field}
+                    placeholderText={
+                      placeholderTexts[field] || `Enter ${field}`
+                    }
+                    {...register(field)}
+                  />
+                );
+              })}
+            </div>
           </div>
         </div>
-        <Link to="/dashboard/printdocument">
-          <div className="flex justify-end">
-            <Button text="Generate" special="w-44 h-10 rounded-xl" />
-          </div>
-        </Link>
-      </div>
+        <div className="flex justify-end">
+          <Button
+            type="submit"
+            text="Generate"
+            special="w-44 h-10 rounded-xl"
+          />
+        </div>
+      </form>
     </div>
   );
 }
 
 export default GenerateDocumentComp;
+
+//Create redux store for pdf and store from the file.REtrieve at printingdocument and send to pdfComp and use it to render it
