@@ -31,7 +31,7 @@ const PopupRegister = ({ isOpen, onClose }) => {
         // mobile,
       });
       // handle success
-      navigate("/dashboard");
+      console.log("response at register:", response);
     } catch (error) {
       // handle error
       console.log("Error registering user", error);
@@ -44,6 +44,7 @@ const PopupRegister = ({ isOpen, onClose }) => {
         }
       );
       dispatch(login(response.data.userProfile));
+      navigate("/dashboard");
     } catch (error) {
       console.log("Error fetching data of user", error);
       dispatch(logout()); //khali garey paxi afai logout hunxa ra??->Yes,protected route ko kamal ho
