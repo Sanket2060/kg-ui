@@ -22,32 +22,32 @@ const PopupRegister = ({ isOpen, onClose }) => {
     password,
   }) => {
     try {
-      // setLoader(true);
+      // First API call for registration
       const response = await axios.post(`${backend_url}/auth/register`, {
         name: firstName,
-        // lastName,
         email,
         password,
-        // mobile,
-      });
-      // handle success
-      console.log("response at register:", response);
-    } catch (error) {
-      // handle error
-      console.log("Error registering user", error);
-    }
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/getDetails/fetchUserProfileDetails`,
+      },
+        {withCredentials:true}
+        // mobile, // Add other fields if necessary
+      );
+
+      console.log("Response from register:", response);
+
+      // Second API call to fetch user profile details after successful registration
+      const userProfileResponse = await axios.get(
+        `${backend_url}/getDetails/fetchUserProfileDetails`,
         {
-          withCredentials: true,
+          withCredentials: true, // Ensure cookies are included in the request
         }
       );
-      dispatch(login(response.data.userProfile));
+
+      // Dispatch the login action with the fetched user profile details
+      dispatch(login(userProfileResponse.data.userProfile));
       navigate("/dashboard");
     } catch (error) {
-      console.log("Error fetching data of user", error);
-      dispatch(logout()); //khali garey paxi afai logout hunxa ra??->Yes,protected route ko kamal ho
+      console.error("Error during registration or fetching user profile:", error);
+      dispatch(logout()); // Log out if there's an error
     }
   };
 
