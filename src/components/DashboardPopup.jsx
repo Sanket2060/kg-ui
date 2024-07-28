@@ -59,7 +59,7 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 font-Poppins">
           <form
             onSubmit={handleSubmit(submit)}
-            className="bg-white relative rounded-lg py-9 px-8 w-[90%] sm:w-[75%] lg:w-[70%] xl:w-[60%] h-[54%] sm:h-[62%]  md:h-[75%] lg:h-[62%] flex flex-col items-start font-medium"
+            className="bg-white relative rounded-lg py-9 px-8 w-[90%] sm:w-[75%] lg:w-[70%] xl:w-[60%] h-fit flex flex-col items-start font-medium"
           >
             <div className="text-base w-full">
               <div className="mb-4 text-base flex justify-between hover:cursor-pointer">
@@ -145,12 +145,12 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                 </div>
               </div>
             </div>
-            <div className=" services font-Poppins text-[#30455E] w-full hidden sm:visible">
+            <div className=" services font-Poppins text-[#30455E] w-full hidden sm:block lg:mb-7">
               <div className="text-center  font-semibold text-[28px] leading-[72px] mt-3 sm:mt-8 md:mt-4 lg:mt-8 mb-5">
                 Services
               </div>
               <div className="flex flex-wrap justify-between md:justify-around sm:mb-6 md:mb-1">
-                <div className="flex flex-col items-center   md:w-1/4 lg:w-1/5  lg:mb-0 mb-8  lg:flex-nowrap md:mr-2 ">
+                <div className="flex flex-col items-center   sm:w-1/4 lg:w-1/5  lg:mb-0 mb-8  lg:flex-nowrap sm:mr-2 md:mr-0 ">
                   <img
                     src={policereport}
                     className="w-16 h-14 sm:w-20 sm:h-16 lg:w-28 lg:h-24"
@@ -160,21 +160,21 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                     Police Report
                   </div>
                 </div>
-                <div className="flex flex-col items-center  md:w-1/4 lg:w-1/5  lg:mb-0 mb-8  lg:flex-nowrap  md:mr-2">
+                <div className="flex flex-col items-center sm:w-1/4  md:w-1/4 lg:w-1/5  lg:mb-0 mb-8  lg:flex-nowrap  sm:mr-2 md:mr-0">
                   <img
                     src={irddocument}
                     alt=""
-                    className="w-16 h-14 sm:w-20 sm:h-16"
+                    className="w-16 h-14 sm:w-20 sm:h-16 lg:w-28 lg:h-24"
                   />
                   <div className="mt-3 text-center text-sm md:text-base">
                     IRD Document
                   </div>
                 </div>
-                <div className="flex flex-col items-center  md:w-1/4 lg:w-1/5  lg:mb-0 mb-8  lg:flex-nowrap md:mr-2">
+                <div className="flex flex-col items-center sm:w-1/4  md:w-1/4 lg:w-1/5  lg:mb-0 mb-8  lg:flex-nowrap sm:mr-2 md:mr-0">
                   <img
                     src={irddocument}
                     alt=""
-                    className="w-16 h-14 sm:w-20 sm:h-16"
+                    className="w-16 h-14 sm:w-20 sm:h-16 lg:w-28 lg:h-24"
                   />
                   <div className="mt-3 text-center text-sm md:text-base">
                     Malpot Document
@@ -182,21 +182,21 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                 </div>
 
                 {/* For small screens: Single items */}
-                <div className="flex flex-col items-center  md:w-1/4 lg:w-1/5 lg:mb-0 mb-8  lg:flex-nowrap md:mr-2">
+                <div className="flex flex-col items-center sm:w-1/4  md:w-1/4 lg:w-1/5 lg:mb-0 mb-8  lg:flex-nowrap sm:mr-2 md:mr-0">
                   <img
                     src={irddocument}
                     alt=""
-                    className="w-16 h-14 sm:w-20 sm:h-16"
+                    className="w-16 h-14 sm:w-20 sm:h-16 lg:w-28 lg:h-24"
                   />
                   <div className="mt-3 text-center text-sm md:text-base">
                     Municipality Document
                   </div>
                 </div>
-                <div className="flex flex-col items-center  md:w-1/4 lg:w-1/5 lg:mb-0   lg:flex-nowrap md:mr-2">
+                <div className="flex flex-col items-center sm:w-1/4  md:w-1/4 lg:w-1/5 lg:mb-0 mb-8   lg:flex-nowrap sm:mr-2 md:mr-0">
                   <img
                     src={irddocument}
                     alt=""
-                    className="w-16 h-14 sm:w-20 sm:h-16"
+                    className="w-16 h-14 sm:w-20 sm:h-16 lg:w-28 lg:h-24"
                   />
                   <div className="mt-3 text-center text-sm md:text-base">
                     Ward Document
