@@ -59,14 +59,20 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 font-Poppins">
           <form
             onSubmit={handleSubmit(submit)}
-            className="bg-white relative rounded-lg py-9 px-8 w-[90%] md:w-[60%] h-[62%] flex flex-col items-start font-medium"
+            className="bg-white relative rounded-lg py-9 px-8 w-[90%] sm:w-[75%] lg:w-[70%] xl:w-[60%] h-[54%] sm:h-[62%]  md:h-[75%] lg:h-[62%] flex flex-col items-start font-medium"
           >
-            <div className="text-base ">
+            <div className="text-base w-full">
               <div className="mb-4 text-base flex justify-between hover:cursor-pointer">
                 <div>Select Your Location</div>
-                <img src={cross} className="w-4 h-4" alt="" srcset=""  onClick={onClose}/>
+                <img
+                  src={cross}
+                  className="w-4 h-4"
+                  alt=""
+                  srcset=""
+                  onClick={onClose}
+                />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16 sm:mb-0">
                 {/* {/* <Select
                   type="Province"
                   options={provinceOptions}
@@ -121,7 +127,7 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                     ))}
                   </select>
                 </div>
-                <div className="rounded-xl w-full">
+                <div className="rounded-xl w-full ">
                   <select
                     className={`text-[10px] lg:text-base xl:text-lg appearance-none w-full h-12 bg-white border border-[#E2E7ED] text-gray-700 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500`}
                     {...register("ward", { required: true })}
@@ -139,36 +145,66 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                 </div>
               </div>
             </div>
-            <div className=" services font-Poppins text-[#30455E] mb-12 w-full">
-              <div className="text-center  font-semibold text-[28px] leading-[72px] mt-8 mb-5">
+            <div className=" services font-Poppins text-[#30455E] w-full hidden sm:visible">
+              <div className="text-center  font-semibold text-[28px] leading-[72px] mt-3 sm:mt-8 md:mt-4 lg:mt-8 mb-5">
                 Services
               </div>
-              <div className="flex flex-wrap justify-between md:justify-around">
-                <div className="flex flex-col items-center w-full md:w-1/2 lg:w-1/5 md:mb-8 lg:mb-0 mb-8  lg:flex-nowrap">
-                  <img src={policereport} className="w-28 h-24" alt="" />
-                  <div className="mt-3 text-center">Police Report</div>
+              <div className="flex flex-wrap justify-between md:justify-around sm:mb-6 md:mb-1">
+                <div className="flex flex-col items-center   md:w-1/4 lg:w-1/5  lg:mb-0 mb-8  lg:flex-nowrap md:mr-2 ">
+                  <img
+                    src={policereport}
+                    className="w-16 h-14 sm:w-20 sm:h-16 lg:w-28 lg:h-24"
+                    alt=""
+                  />
+                  <div className="mt-3 text-center text-sm md:text-base">
+                    Police Report
+                  </div>
                 </div>
-                <div className="flex flex-col items-center w-full md:w-1/2 lg:w-1/5 md:mb-8 lg:mb-0 mb-8  lg:flex-nowrap">
-                  <img src={irddocument} alt="" className="w-28 h-24" />
-                  <div className="mt-3 text-center">IRD Document</div>
+                <div className="flex flex-col items-center  md:w-1/4 lg:w-1/5  lg:mb-0 mb-8  lg:flex-nowrap  md:mr-2">
+                  <img
+                    src={irddocument}
+                    alt=""
+                    className="w-16 h-14 sm:w-20 sm:h-16"
+                  />
+                  <div className="mt-3 text-center text-sm md:text-base">
+                    IRD Document
+                  </div>
                 </div>
-                <div className="flex flex-col items-center w-full md:w-1/2 lg:w-1/5 md:mb-8 lg:mb-0 mb-8  lg:flex-nowrap">
-                  <img src={irddocument} alt="" className="w-28 h-24" />
-                  <div className="mt-3 text-center">Malpot Document</div>
+                <div className="flex flex-col items-center  md:w-1/4 lg:w-1/5  lg:mb-0 mb-8  lg:flex-nowrap md:mr-2">
+                  <img
+                    src={irddocument}
+                    alt=""
+                    className="w-16 h-14 sm:w-20 sm:h-16"
+                  />
+                  <div className="mt-3 text-center text-sm md:text-base">
+                    Malpot Document
+                  </div>
                 </div>
 
                 {/* For small screens: Single items */}
-                <div className="flex flex-col items-center w-full md:w-1/2 lg:w-1/5 md:mb-8 lg:mb-0 mb-8  lg:flex-nowrap">
-                  <img src={irddocument} alt="" className="w-28 h-24" />
-                  <div className="mt-3 text-center">Municipality Document</div>
+                <div className="flex flex-col items-center  md:w-1/4 lg:w-1/5 lg:mb-0 mb-8  lg:flex-nowrap md:mr-2">
+                  <img
+                    src={irddocument}
+                    alt=""
+                    className="w-16 h-14 sm:w-20 sm:h-16"
+                  />
+                  <div className="mt-3 text-center text-sm md:text-base">
+                    Municipality Document
+                  </div>
                 </div>
-                <div className="flex flex-col items-center w-full md:w-1/2 lg:w-1/5 md:mb-8 lg:mb-0 mb-8  lg:flex-nowrap">
-                  <img src={irddocument} alt="" className="w-28 h-24" />
-                  <div className="mt-3 text-center">Ward Document</div>
+                <div className="flex flex-col items-center  md:w-1/4 lg:w-1/5 lg:mb-0   lg:flex-nowrap md:mr-2">
+                  <img
+                    src={irddocument}
+                    alt=""
+                    className="w-16 h-14 sm:w-20 sm:h-16"
+                  />
+                  <div className="mt-3 text-center text-sm md:text-base">
+                    Ward Document
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex w-full  justify-end">
+            <div className="flex w-full  justify-center sm:justify-end">
               <Button
                 text="Submit"
                 special="w-40 h-9 rounded-xl p-2"

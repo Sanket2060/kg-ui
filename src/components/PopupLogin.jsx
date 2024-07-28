@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../features/user/authSlice.js";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 const PopupLogin = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +29,6 @@ const PopupLogin = ({ isOpen, onClose }) => {
         { withCredentials: true } // Include credentials (cookies) in the request
       );
       setLoginError(""); // Clear login error
-
       // Second API call: fetch user details (only runs if the first API call succeeds)
       const userDetailsResponse = await axios.get(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/getDetails/fetchUserProfileDetails`,
@@ -37,6 +36,7 @@ const PopupLogin = ({ isOpen, onClose }) => {
       );
       dispatch(login(userDetailsResponse.data.userProfile));
       navigate("/dashboard");
+      toast.success(loginResponse.data.message); // Display success message from API response
     } catch (error) {
       if (error?.response?.data?.message) {
         setLoginError(error.response.data.message);

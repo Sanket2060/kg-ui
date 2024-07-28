@@ -8,6 +8,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../features/user/authSlice.js";
+import { toast } from "react-toastify";
+
 const PopupRegister = ({ isOpen, onClose }) => {
   const backend_url = import.meta.env.VITE_REACT_APP_BASE_URL;
   const { register, formState, handleSubmit, getValues } = useForm();
@@ -23,12 +25,14 @@ const PopupRegister = ({ isOpen, onClose }) => {
   }) => {
     try {
       // First API call for registration
-      const response = await axios.post(`${backend_url}/auth/register`, {
-        name: firstName,
-        email,
-        password,
-      },
-        {withCredentials:true}
+      const response = await axios.post(
+        `${backend_url}/auth/register`,
+        {
+          name: firstName,
+          email,
+          password,
+        },
+        { withCredentials: true }
         // mobile, // Add other fields if necessary
       );
 
@@ -45,6 +49,7 @@ const PopupRegister = ({ isOpen, onClose }) => {
       // Dispatch the login action with the fetched user profile details
       dispatch(login(userProfileResponse.data.userProfile));
       navigate("/dashboard");
+      toast.success(response.data.message); // Display success message from API response
     } catch (error) {
       console.error("Error during registration or fetching user profile:", error);
       dispatch(logout()); // Log out if there's an error
