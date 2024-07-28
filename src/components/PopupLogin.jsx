@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../features/user/authSlice.js";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 const PopupLogin = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,33 +22,29 @@ const PopupLogin = ({ isOpen, onClose }) => {
 
   const loginUser = async ({ email, password }) => {
     try {
-      const response = await axios.post(
+      // First API call: login
+      const loginResponse = await axios.post(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/auth/login`,
-        {
-          email,
-          password,
-        },
-        {
-          withCredentials: true, // Include credentials (cookies) in the request
-        }
+        { email, password },
+        { withCredentials: true } // Include credentials (cookies) in the request
       );
       setLoginError(""); // Clear login error
-    } catch (error) {
-      console.log("Error at logging user ", error);
-      setLoginError(error?.response?.data?.message || "An error occurred");
-    }
-    try {
-      const response = await axios.get(
+      // Second API call: fetch user details (only runs if the first API call succeeds)
+      const userDetailsResponse = await axios.get(
         `${import.meta.env.VITE_REACT_APP_BASE_URL}/getDetails/fetchUserProfileDetails`,
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
-      dispatch(login(response.data.userProfile));
+      dispatch(login(userDetailsResponse.data.userProfile));
       navigate("/dashboard");
+      toast.success(loginResponse.data.message); // Display success message from API response
     } catch (error) {
-      console.log("error fetching User Details", error);
-      dispatch(logout()); //khali garey paxi afai logout hunxa ra??->Yes,protected route ko kamal ho
+      if (error?.response?.data?.message) {
+        setLoginError(error.response.data.message);
+      } else {
+        setLoginError("An error occurred");
+      }
+      dispatch(logout());
+      console.log("Error:", error);
     }
   };
 

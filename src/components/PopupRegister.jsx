@@ -8,6 +8,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../features/user/authSlice.js";
+import { toast } from "react-toastify";
+
 const PopupRegister = ({ isOpen, onClose }) => {
   const backend_url = import.meta.env.VITE_REACT_APP_BASE_URL;
   const { register, formState, handleSubmit, getValues } = useForm();
@@ -22,32 +24,35 @@ const PopupRegister = ({ isOpen, onClose }) => {
     password,
   }) => {
     try {
-      // setLoader(true);
-      const response = await axios.post(`${backend_url}/auth/register`, {
-        name: firstName,
-        // lastName,
-        email,
-        password,
-        // mobile,
-      });
-      // handle success
-      console.log("response at register:", response);
-    } catch (error) {
-      // handle error
-      console.log("Error registering user", error);
-    }
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/getDetails/fetchUserProfileDetails`,
+      // First API call for registration
+      const response = await axios.post(
+        `${backend_url}/auth/register`,
         {
-          withCredentials: true,
+          name: firstName,
+          email,
+          password,
+        },
+        { withCredentials: true }
+        // mobile, // Add other fields if necessary
+      );
+
+      console.log("Response from register:", response);
+
+      // Second API call to fetch user profile details after successful registration
+      const userProfileResponse = await axios.get(
+        `${backend_url}/getDetails/fetchUserProfileDetails`,
+        {
+          withCredentials: true, // Ensure cookies are included in the request
         }
       );
-      dispatch(login(response.data.userProfile));
+
+      // Dispatch the login action with the fetched user profile details
+      dispatch(login(userProfileResponse.data.userProfile));
       navigate("/dashboard");
+      toast.success(response.data.message); // Display success message from API response
     } catch (error) {
-      console.log("Error fetching data of user", error);
-      dispatch(logout()); //khali garey paxi afai logout hunxa ra??->Yes,protected route ko kamal ho
+      console.error("Error during registration or fetching user profile:", error);
+      dispatch(logout()); // Log out if there's an error
     }
   };
 
