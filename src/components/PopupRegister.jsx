@@ -48,7 +48,6 @@ const PopupRegister = ({ isOpen, onClose }) => {
 
       // Dispatch the login action with the fetched user profile details
       dispatch(login(userProfileResponse.data.userProfile));
-      navigate("/dashboard");
       toast.success(response.data.message); // Display success message from API response
     } catch (error) {
       console.error("Error during registration or fetching user profile:", error);

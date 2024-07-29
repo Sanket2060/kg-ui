@@ -35,7 +35,6 @@ const PopupLogin = ({ isOpen, onClose }) => {
         { withCredentials: true }
       );
       dispatch(login(userDetailsResponse.data.userProfile));
-      navigate("/dashboard");
       toast.success(loginResponse.data.message); // Display success message from API response
     } catch (error) {
       if (error?.response?.data?.message) {
