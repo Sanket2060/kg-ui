@@ -14,13 +14,13 @@ function Header({ openPopupRegister, openPopupLogin }) {
 
   return (
     <>
-      <header className="font-Poppins text-xl font-medium text-[#30455E] px-4">
-        <div className="lg:flex hidden justify-end items-center h-10 *:hover:cursor-pointer">
+      <header className="font-Poppins text-xl font-medium text-[#30455E] px-0 sticky top-0 z-10 border-b-[1px] ">
+        <div className="lg:flex hidden justify-end items-center h-10 *:hover:cursor-pointer bg-[#f7f8fe]">
           <div className="mr-20">Police Report</div>
           <div className="mr-20">Namsari Kagaz</div>
           <div className="mr-20">Rajinama Kagaz</div>
         </div>
-        <div className="h-20 flex items-center justify-between border-t-[1px]">
+        <div className="h-20 flex items-center justify-between border-t-[1px] bg-white">
           <div>
             <img src={kaagazpatralogo} className="w-40" alt="" />
           </div>
