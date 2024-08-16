@@ -9,6 +9,7 @@ import { HiMenu, HiX } from "react-icons/hi";
 import { logout } from "../features/user/authSlice.js";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import axios from "axios";
 function Sideboard() {
   const [activeLink, setActiveLink] = useState("");
@@ -17,15 +18,14 @@ function Sideboard() {
   const navigate = useNavigate();
   const logoutUser = async () => {
     try {
-      // const response = await axios.post(
-      //   "http://localhost:9005/users/logout",
-      //   {},
-      //   {
-      //     withCredentials: true, // Include credentials (cookies) in the request
-      //   }
-      // );
+      const response = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/auth/logout`,
+        {
+          withCredentials: true, // Include credentials (cookies) in the request
+        }
+      );
       dispatch(logout());
-      navigate("/");
+      toast.success("Logged Out Successfully");
     } catch (error) {
       console.log("Error at logging user out:", error);
     }
@@ -42,13 +42,13 @@ function Sideboard() {
   return (
     <div className="font-Poppins h-full w-14 sm:w-[18] md:w-[20vw] md:min-w-[16rem]  border-2 sm:text-[10px] md:text-sm relative">
       <header className="py-6 h-[13%] flex justify-between items-center px-3 md:px-0">
-        <Link to='/'>
-        <img
-          src={kaagazpatralogo}
-          className="md:block hidden w-40 h-16"
-          alt=""
+        <Link to="/">
+          <img
+            src={kaagazpatralogo}
+            className="md:block hidden w-40 h-16"
+            alt=""
           />
-          </Link>
+        </Link>
         <button
           className="block md:hidden focus:outline-none"
           onClick={toggleMenu}
@@ -219,10 +219,11 @@ function Sideboard() {
                   </div>
                 </Link>
               </div>
-              <div className="flex items-center pl-10 border-t-2 w-full py-2 hover:cursor-pointer" onClick={logoutUser}>
-                <div className="mr-5" >
-                  Log out
-                </div>
+              <div
+                className="flex items-center pl-10 border-t-2 w-full py-2 hover:cursor-pointer"
+                onClick={logoutUser}
+              >
+                <div className="mr-5">Log out</div>
                 <img src={logoutbuttonimage} className="w-4 h-4" alt="" />
               </div>
             </div>
