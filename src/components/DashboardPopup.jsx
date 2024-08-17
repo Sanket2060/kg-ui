@@ -51,7 +51,7 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
     );
     console.log(updatedUser);
     onClose();
-    dispatch(login(updatedUser));
+    dispatch(login(updatedUser?.data));
   };
   return (
     <>
