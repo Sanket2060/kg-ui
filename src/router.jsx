@@ -1,4 +1,5 @@
 import Home from "./pages/Home";
+import HomeLayOut from "./components/HomeLayOut/";
 import DashboardLayout from "./pages/DashboardLayout";
 import "./App.css";
 import About from "./pages/About";
@@ -8,7 +9,9 @@ import GenerateDocument from "./pages/utils/GenerateDocument";
 import PrintingDocument from "./pages/utils/PrintingDocument";
 import Kuruwa from "./pages/utils/Kuruwa";
 import NotaryPublic from "./pages/utils/NotaryPublic";
-import ProtectedRoute, { DirectAccessOnAccessToken } from "./components/ProtectedRoute";
+import ProtectedRoute, {
+  DirectAccessOnAccessToken,
+} from "./components/ProtectedRoute";
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 const router = createBrowserRouter([
@@ -18,24 +21,32 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: 
-        <DirectAccessOnAccessToken redirectOnSuccess='/dashboard'>
-        <Home />
-         </DirectAccessOnAccessToken>
+        element: (
+          <DirectAccessOnAccessToken redirectOnSuccess="/dashboard">
+            <HomeLayOut/>
+          </DirectAccessOnAccessToken>
+        ),
+        children: [
+          {
+            path: "/",
+            element: <Home />,
+          },
+          {
+            path: "services",
+            element: <Services />,
+          },
+          {
+            path: "about",
+            element: <About />,
+          },
+        ],
       },
-      {
-        path: "services",
-        element: <Services />,
-      },
-      {
-        path: "about",
-        element: <About />,
-      },
+
       {
         path: "dashboard",
         element: (
           <ProtectedRoute>
-            <DashboardLayout />
+            <DashboardLayout />{" "}
           </ProtectedRoute>
         ),
         children: [
