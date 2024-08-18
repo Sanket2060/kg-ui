@@ -1,5 +1,4 @@
 import { pdfjs } from "react-pdf";
-import React from "react";
 import "./App.css";
 import { Outlet } from "react-router-dom";
 import useCheckAuthStatus from "./hooks/useCheckAuthStatus.js";

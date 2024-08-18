@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { login, logout } from "../features/user/authSlice.js";
 import { toast } from "react-toastify";
 
-const PopupRegister = ({ isOpen, onClose }) => {
+const PopupRegister = ({ isOpen, onClose, onLogin }) => {
   const backend_url = import.meta.env.VITE_REACT_APP_BASE_URL;
   const { register, formState, handleSubmit, getValues } = useForm();
   const { errors } = formState;
@@ -37,20 +37,28 @@ const PopupRegister = ({ isOpen, onClose }) => {
       );
 
       console.log("Response from register:", response);
+      if (response) {
+        onLogin();
+        onClose();
+
+      }
 
       // Second API call to fetch user profile details after successful registration
-      const userProfileResponse = await axios.get(
-        `${backend_url}/getDetails/fetchUserProfileDetails`,
-        {
-          withCredentials: true, // Ensure cookies are included in the request
-        }
-      );
+      // const userProfileResponse = await axios.get(
+      //   `${backend_url}/getDetails/fetchUserProfileDetails`,
+      //   {
+      //     withCredentials: true, // Ensure cookies are included in the request
+      //   }
+      // );
 
-      // Dispatch the login action with the fetched user profile details
-      dispatch(login(userProfileResponse.data.userProfile));
-      toast.success(response.data.message); // Display success message from API response
+      // // Dispatch the login action with the fetched user profile details
+      // dispatch(login(userProfileResponse.data.userProfile));
+      // toast.success(response.data.message); // Display success message from API response
     } catch (error) {
-      console.error("Error during registration or fetching user profile:", error);
+      console.error(
+        "Error during registration or fetching user profile:",
+        error
+      );
       dispatch(logout()); // Log out if there's an error
     }
   };

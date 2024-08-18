@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import kaagazpatralogo from "../assets/kaagazpatralogo.png";
 import cross from "../assets/cross.png";
 import Button from "./Button";
@@ -10,38 +10,168 @@ import { useForm } from "react-hook-form";
 import { updateProfile } from "../api/userApi/updateProfile.js";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../features/user/authSlice.js";
+import axios  from "axios";
 
 const DashboardPopup = ({ isOpen, onClose, message }) => {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
-  const provinceOptions = [
-    { value: "province1", label: "Province 1" },
-    { value: "province2", label: "Province 2" },
-    { value: "province3", label: "Province 3" },
-    // Add more options as needed
-  ];
+  const [provinces, setProvinces] = useState([]);
+  const [districts, setDistricts] = useState([]);
+  const [municipalities, setMunicipalities] = useState([]);
+  const [wards, setWards] = useState([]);
 
-  // Define municipality options
-  const districtOptions = [
-    { value: "District1", label: "District 1" },
-    { value: "District2", label: "District 2" },
-    { value: "District3", label: "District 3" },
-    // Add more options as needed
-  ];
-  const municipalityOptions = [
-    { value: "municipality1", label: "Municipality 1" },
-    { value: "municipality2", label: "Municipality 2" },
-    { value: "municipality3", label: "Municipality 3" },
-    // Add more options as needed
-  ];
+  const [selectedProvinceId, setSelectedProvinceId] = useState("");
+  const [selectedDistrictId, setSelectedDistrictId] = useState("");
+  const [selectedMunicipalityId, setSelectedMunicipalityId] = useState("");
+  const [selectedWardNo, setSelectedWardNo] = useState("");
 
-  // Define ward options
-  const wardOptions = [
-    { value: "ward1", label: "Ward 1" },
-    { value: "ward2", label: "Ward 2" },
-    { value: "ward3", label: "Ward 3" },
-    // Add more options as needed
-  ];
+  // Fetch the list of provinces when the component mounts
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:2000/api/v1/province",
+          {
+            headers: { accept: "application/json" },
+          }
+        );
+        console.log(response.data.province);
+        console.log("wrong ur")
+        setProvinces(response.data.provinces || []);
+      } catch (error) {
+        console.error("Error fetching provinces:", error);
+      }
+    };
+
+    fetchProvinces();
+  }, []);
+
+  // Fetch districts for the selected province
+  useEffect(() => {
+    if (selectedProvinceId) {
+      const fetchDistricts = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:2000/api/v1/province/${selectedProvinceId}/districts`,
+            {
+              headers: { accept: "application/json" },
+            }
+          );
+          setDistricts(response.data || []);
+          setSelectedDistrictId(""); // Reset district selection when province changes
+        } catch (error) {
+          console.error("Error fetching districts:", error);
+        }
+      };
+
+      fetchDistricts();
+    } else {
+      // Clear districts if no province is selected
+      setDistricts([]);
+      setSelectedDistrictId(""); // Reset district selection
+    }
+  }, [selectedProvinceId]);
+
+  // Fetch municipalities for the selected district
+  useEffect(() => {
+    if (selectedDistrictId) {
+      const fetchMunicipalities = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:2000/api/v1/district/${selectedDistrictId}/municipalities`,
+            {
+              headers: { accept: "application/json" },
+            }
+          );
+          setMunicipalities(response.data || []);
+          setSelectedMunicipalityId(""); // Reset municipality selection when district changes
+        } catch (error) {
+          console.error("Error fetching municipalities:", error);
+        }
+      };
+
+      fetchMunicipalities();
+    } else {
+      // Clear municipalities if no district is selected
+      setMunicipalities([]);
+      setSelectedMunicipalityId(""); // Reset municipality selection
+    }
+  }, [selectedDistrictId]);
+
+  // Fetch wards for the selected municipality
+  useEffect(() => {
+    if (selectedMunicipalityId) {
+      const fetchWards = async () => {
+        try {
+          const response = await axios.get(
+            `http://localhost:2000/api/v1/municipality/${selectedMunicipalityId}/wards`,
+            {
+              headers: { accept: "application/json" },
+            }
+          );
+          setWards(response.data || []);
+          console.log(response.data);
+          setSelectedWardNo(""); // Reset ward selection when municipality changes
+        } catch (error) {
+          console.error("Error fetching wards:", error);
+        }
+      };
+
+      fetchWards();
+    } else {
+      // Clear wards if no municipality is selected
+      setWards([]);
+      setSelectedWardNo(""); // Reset ward selection
+    }
+  }, [selectedMunicipalityId]);
+
+  // Handle province change
+  const handleProvinceChange = (event) => {
+    setSelectedProvinceId(event.target.value);
+  };
+
+  // Handle district change
+  const handleDistrictChange = (event) => {
+    setSelectedDistrictId(event.target.value);
+  };
+
+  // Handle municipality change
+  const handleMunicipalityChange = (event) => {
+    setSelectedMunicipalityId(event.target.value);
+  };
+
+  // Handle ward change
+  const handleWardChange = (event) => {
+    setSelectedWardNo(event.target.value);
+  };
+  // const provinceOptions = [
+  //   { value: "province1", label: "Province 1" },
+  //   { value: "province2", label: "Province 2" },
+  //   { value: "province3", label: "Province 3" },
+  //   // Add more options as needed
+  // ];
+
+  // // Define municipality options
+  // const districtOptions = [
+  //   { value: "District1", label: "District 1" },
+  //   { value: "District2", label: "District 2" },
+  //   { value: "District3", label: "District 3" },
+  //   // Add more options as needed
+  // ];
+  // const municipalityOptions = [
+  //   { value: "municipality1", label: "Municipality 1" },
+  //   { value: "municipality2", label: "Municipality 2" },
+  //   { value: "municipality3", label: "Municipality 3" },
+  //   // Add more options as needed
+  // ];
+
+  // // Define ward options
+  // const wardOptions = [
+  //   { value: "ward1", label: "Ward 1" },
+  //   { value: "ward2", label: "Ward 2" },
+  //   { value: "ward3", label: "Ward 3" },
+  //   // Add more options as needed
+  // ];
   const submit = async ({ province, district, municipality, ward }) => {
     const updatedUser = await updateProfile(
       province,
@@ -84,13 +214,14 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                     className={`text-[10px] lg:text-base xl:text-lg appearance-none w-full h-12 bg-white border border-[#E2E7ED] text-gray-700 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500`}
                     {...register("province", { required: true })}
                     type="province"
+                    onChange={handleProvinceChange}
                   >
                     <option value="" disabled selected>
                       Province
                     </option>
-                    {provinceOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.value}
+                    {provinces.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.name}
                       </option>
                     ))}
                   </select>
@@ -100,13 +231,14 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                     className={`text-[10px] lg:text-base xl:text-lg appearance-none w-full h-12 bg-white border border-[#E2E7ED] text-gray-700 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500`}
                     {...register("district", { required: true })}
                     type="district"
+                    onChange={handleDistrictChange}
                   >
                     <option value="" disabled selected>
                       District
                     </option>
-                    {districtOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.value}
+                    {districts.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.name}
                       </option>
                     ))}
                   </select>
@@ -116,13 +248,14 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                     className={`text-[10px] lg:text-base xl:text-lg appearance-none w-full h-12 bg-white border border-[#E2E7ED] text-gray-700 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500`}
                     {...register("municipality", { required: true })}
                     type="Municipality"
+                    onChange={handleMunicipalityChange}
                   >
                     <option value="" disabled selected>
                       Municipality
                     </option>
-                    {municipalityOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.value}
+                    {municipalities.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.name}
                       </option>
                     ))}
                   </select>
@@ -132,13 +265,15 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                     className={`text-[10px] lg:text-base xl:text-lg appearance-none w-full h-12 bg-white border border-[#E2E7ED] text-gray-700 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500`}
                     {...register("ward", { required: true })}
                     type="Ward"
+                  
+                    onChange={handleWardChange}
                   >
                     <option value="" disabled selected>
                       Ward
                     </option>
-                    {wardOptions.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.value}
+                    {wards.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option}
                       </option>
                     ))}
                   </select>
