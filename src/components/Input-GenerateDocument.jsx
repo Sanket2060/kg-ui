@@ -1,78 +1,43 @@
-// import React from "react";
-// import { forwardRef } from 'react';
-
-// const InputGenerateDocument = forwardRef(({inputText,placeholderText},ref) => {
-//   InputGenerateDocument.displayName = inputText;
-//   return (
-//     <>
-//       <div className="mb-2 md:px-6">
-//         <label
-//           className="block font-medium text-gray-700 mb-2"
-//           htmlFor={inputText}
-//         >
-//           Your {inputText}*
-//         </label>
-//         <input
-//           className="max-w-56 h-12 px-3 py-2 border border-gray-300 rounded-xl"
-//           type="text"
-//           id={inputText}
-//           name={inputText}
-//           placeholder={placeholderText}
-//           required
-//           ref={ref}
-//         />
-//       </div>
-//     </>
-//   );
-// });
-// export default InputGenerateDocument++++++++++++++++++++++++++++++
 import React, { useEffect } from "react";
 import { forwardRef } from "react";
 import { EntoanyTextField } from "entoany";
 import { useState } from "react";
+
 const InputGenerateDocument = forwardRef(
-  ({ inputText, placeholderText, ...rest }, ref) => {
-    const [enteredText, setEnteredText] = useState("");
+  ({ inputText, placeholderText, onChange, onBlur, value, name, ref, ...rest }) => {
+    const [enteredText, setEnteredText] = useState(value || "");
     const [selectedText, setSelectedText] = useState("");
+
     const handleEnteredTextChange = (text) => {
       setEnteredText(text);
+      onChange({ target: { name, value: text } }); // Update form value
     };
 
     const handleSelectedTextChange = (selectedValue) => {
       setSelectedText(selectedValue);
+      onChange({ target: { name, value: selectedValue } }); // Update form value
     };
+
     useEffect(() => {
-      console.log("entered text",enteredText);
-      console.log("selected Text", selectedText);
-    }, [enteredText,selectedText]);
+      console.log("entered text:", enteredText);
+      console.log("selected text:", selectedText);
+    }, [enteredText, selectedText]);
+
     InputGenerateDocument.displayName = inputText;
+
     return (
-      <>
-        <div className="mb-2 md:px-6">
-          <label
-            className="block font-medium text-gray-700 mb-2"
-            htmlFor={inputText}
-          >
-            Your {inputText}*
-          </label>
-          {/* <input
-          className="max-w-56 h-12 px-3 py-2 border border-gray-300 rounded-xl"
-          type="text"
-          id={inputText}
-          name={inputText}
-          placeholder={placeholderText}
-          required
-          ref={ref}
+      <div className="mb-2 md:px-6">
+        <label className="block font-medium text-gray-700 mb-2" htmlFor={inputText}>
+          Your {inputText}*
+        </label>
+        <EntoanyTextField
+          preferredLanguage="ne" // Example preferred language setting
+          hintText={placeholderText} // Example hint text
+          onEnteredTextChange={handleEnteredTextChange}
+          onSelectedTextChange={handleSelectedTextChange}
           {...rest}
-        /> */}
-          <EntoanyTextField
-            preferredLanguage="ne" // Example preferred language setting
-            hintText="Enter text here" // Example hint text
-            onEnteredTextChange={handleEnteredTextChange}
-            onSelectedTextChange={handleSelectedTextChange}
-          />
-        </div>
-      </>
+        />
+      </div>
     );
   }
 );
