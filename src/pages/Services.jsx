@@ -1,33 +1,92 @@
-import React from 'react'
-import womenwriter from "../assets/womenwriter.png";
+import { Card, CardContent } from "@/components/ui/card";
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import person1 from "../assets/person1.png";
+import person2 from "../assets/person2.png";
+import person3 from "../assets/person3.png";
+import person4 from "../assets/person4.png";
+import Person from "../../src/components/Person";
+
+const persons = [
+  {
+    name: "Abhisekh Shakya",
+    place: "Inspector, Kathmandu",
+    backgroundImage: person1,
+  },
+  {
+    name: "Bamdev Ghimire",
+    place: "CIIA Officer, Butwal",
+    backgroundImage: person2,
+  },
+  {
+    name: "Sita Sharma",
+    place: "CIIA Officer, Pokhara",
+    backgroundImage: person3,
+  },
+  {
+    name: "Ram Bahadur",
+    place: "Officer, Lalitpur",
+    backgroundImage: person4,
+  },
+  {
+    name: "Krishna Thapa",
+    place: "CIIA Officer, Chitwan",
+    backgroundImage: person3,
+  },
+];
+
+import Service from "@/components/Services";
 
 function Services() {
   return (
     <div>
-      Services
-      <div className="w-full lg:h-[90vh] h-[93vh] relative font-Poppins border-y-[1px] flex justify-center items-center overflow-hidden bg-[#f7f8fe]">
-        <div className="w-[40vw] md:w-80 h-[40vw] md:h-80 lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem] absolute top-0 left-0 rounded-br-full bg-gradient-to-b from-white via-[#9A98EB]  to-[#9A98EB]"></div>
-        <div className="w-[40vw] md:w-80 h-[40vw] md:h-80 lg:w-[26rem] lg:h-[26rem] xl:w-[28rem] xl:h-[28rem] absolute right-0 bottom-0 rounded-tl-full bg-gradient-to-b from-white to-[#9A98EB]"></div>
-        <div className="content flex flex-col items-start sm:items-center sm:m-0 m-5 ">
-          <div className="font-semibold text-5xl mb-4">
-            Be Your <span className="text-[#6361DC]">Kagazpatra</span> Writer
-          </div>
-          <div className="text-[#30455E] text-xl mb-8 ">
-            No Hassle, No Queue, No Fee
-          </div>
-          <button className="w-32 h-10 text-[#30455E] border-[1px] border-[#30455E] rounded-[0.6rem] text-xl">
-            Generate
-          </button>
+      <Service />
+      <div className="mt-10 flex justify-center items-center flex-col">
+        <div className="w-full max-w-4xl">
+          <Carousel
+            plugins={[Autoplay({ delay: 2000 })]}
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="flex space-x-6 ">
+              {" "}
+              {/* Added space between the cards */}
+              {persons.map((person, index) => (
+                <CarouselItem
+                  key={index}
+                  className="md:basis-1/2 lg:basis-1/3 border-0 "
+                >
+                  <Card className="h-64 w-64 flex items-center justify-center">
+                    {" "}
+                    {/* Centered content */}
+                    <CardContent className="p-2 flex items-center justify-center">
+                      {" "}
+                      {/* Centered content */}
+                      <Person
+                        name={person.name}
+                        place={person.place}
+                        backgroundImage={person.backgroundImage}
+                      />
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
-        <img
-          src={womenwriter}
-          className="w-96 h-96   absolute md:w-[40rem] md:h-[40rem] mt-48 md:mt-[22rem] "
-          style={{ marginLeft: "calc(20vw + 16rem)" }}
-          alt=""
-        />
       </div>
     </div>
   );
 }
 
-export default Services
+export default Services;
