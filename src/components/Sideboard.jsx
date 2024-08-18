@@ -67,12 +67,12 @@ function Sideboard() {
           {showMenu && (
             <div>
               <Link
-                to="/dashboard/lekhapadi"
-                onClick={() => handleLinkClick("lekhapadi")}
+                to="/dashboard"
+                onClick={() => handleLinkClick("dashboard")}
               >
                 <div
                   className={`flex items-center pl-10 h-10 border-t-2 border-[#E2E7ED] ${
-                    activeLink === "lekhapadi"
+                    activeLink === "dashboard"
                       ? "bg-[#6361DC] text-white"
                       : "bg-white text-black"
                   }`}
@@ -116,12 +116,12 @@ function Sideboard() {
         </div>
         <div className="hidden md:flex flex-col justify-between">
           <Link
-            to="/dashboard/lekhapadi"
-            onClick={() => handleLinkClick("lekhapadi")}
+            to="/dashboard"
+            onClick={() => handleLinkClick("dashboard")}
           >
             <div
               className={`flex items-center pl-10 h-10 border-t-2  border-[#E2E7ED] ${
-                activeLink === "lekhapadi"
+                activeLink === "dashboard"
                   ? "bg-[#6361DC] text-white"
                   : "bg-white text-black"
               }`}
