@@ -9,7 +9,7 @@ import Person from "./Person";
 
 function Services() {
   return (
-    <div className="services-component mb-10">
+    <div className="services-component mb-10 bg-[#f7f8fe]">
       <div className=" services font-Poppins text-[#30455E] mb-12">
         <div className="text-center  font-semibold text-[48px] leading-[72px] mb-8">
           Services
@@ -39,7 +39,7 @@ function Services() {
           </div>
         </div>
       </div>
-      <div className="about font-Poppins text-center flex flex-col items-center mb-16 border-t-[1px]">
+      <div className="about font-Poppins text-center flex flex-col items-center mb-16">
         <div className="text-2xl sm:text-3xl lg:text-[48px] leading-tight sm:leading-[48px] lg:leading-[72px] mb-6 font-semibold">
           About <span className="text-[#6361DC]">Kagazpatra</span>
         </div>

@@ -50,8 +50,8 @@ import kaagazpatralogo from "../assets/kaagazpatralogo.png";
 
 function Footer() {
   return (
-    <footer className="mx-10 font-Poppins">
-      <div className="footer1 flex flex-col xl:flex-row xl:justify-around mb-10">
+    <footer className="mx-0 font-Poppins bg-[#f7f8fe] border-t-[1px]">
+      <div className="footer1 flex flex-col xl:flex-row xl:justify-around mb-10 pt-4">
         <div className="flex justify-center xl:block mb-10">
           <img src={kaagazpatralogo} className="min-w-52 w-52" alt="" />
         </div>
@@ -75,7 +75,9 @@ function Footer() {
           </div>
           <div className="column mb-7 largemobiles:mb-0">
             <div className="font-semibold text-2xl mb-5">Trust and issues</div>
-            <div className="mb-3 hover:cursor-pointer">Terms and conditions</div>
+            <div className="mb-3 hover:cursor-pointer">
+              Terms and conditions
+            </div>
             <div className="mb-3 hover:cursor-pointer">Privacy Policy</div>
             <div className="mb-3 hover:cursor-pointer">Cookies Preferences</div>
             <div className="mb-3 hover:cursor-pointer">Licenses</div>
@@ -83,7 +85,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center footer2 text-[#30455E] h-14">
+      <div className="flex justify-center items-center footer2 text-[#30455E] h-14 border-t-[1px]">
         ©Copywrite claimed By Dès vu Technologies. Design and Developed By
         Kagazpatra Team.
       </div>
