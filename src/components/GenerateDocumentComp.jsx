@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Task from "./Task";
 import task1 from "../assets/task1.png";
@@ -50,6 +50,27 @@ function GenerateDocumentComp() {
       navigate("/dashboard/printdocument");
     }
   };
+   const [locationInfo, setLocationInfo] = useState({
+     selectedProvinceName: "",
+     selectedDistrictName: "",
+     selectedMunicipalityName: "",
+     selectedWardNo: "",
+   });
+   // Retrieve data from localStorage when the component mounts
+   useEffect(() => {
+     const province = localStorage.getItem("selectedProvinceName");
+     const district = localStorage.getItem("selectedDistrictName");
+     const municipality = localStorage.getItem("selectedMunicipalityName");
+     const ward = localStorage.getItem("selectedWardNo");
+
+     // Update the state with the retrieved data
+     setLocationInfo({
+       selectedProvinceName: province || "",
+       selectedDistrictName: district || "",
+       selectedMunicipalityName: municipality || "",
+       selectedWardNo: ward || "",
+     });
+   }, []);
 
   return (
     <div className="font-Poppins text-base mx-2 lg:ml-24 lg:mr-48  flex flex-col ">
@@ -62,7 +83,8 @@ function GenerateDocumentComp() {
         </div>
         <div className="flex items-center">
           <div className="flex   lg:w-[29rem] px-4 rounded-xl py-2 border-[1px] border-[#E2E7ED] justify-center items-center ">
-            Lumbini Province/sainamaina Municipality/ Ward-6
+            {/* Lumbini Province/sainamaina Municipality/ Ward-6 */}
+            {locationInfo.selectedProvinceName}/{locationInfo.selectedDistrictName}/{locationInfo.selectedMunicipalityName}/{locationInfo.selectedWardNo}
           </div>
         </div>
       </div>
