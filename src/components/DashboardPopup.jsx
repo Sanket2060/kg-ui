@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { updateProfile } from "../api/userApi/updateProfile.js";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../features/user/authSlice.js";
-import axios  from "axios";
+import axios from "axios";
 
 const DashboardPopup = ({ isOpen, onClose, message }) => {
   const dispatch = useDispatch();
@@ -20,10 +20,16 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
   const [municipalities, setMunicipalities] = useState([]);
   const [wards, setWards] = useState([]);
 
-  const [selectedProvinceId, setSelectedProvinceId] = useState("");
-  const [selectedDistrictId, setSelectedDistrictId] = useState("");
-  const [selectedMunicipalityId, setSelectedMunicipalityId] = useState("");
-  const [selectedWardNo, setSelectedWardNo] = useState("");
+  // Single state object to manage selected IDs and Names
+  const [selectedLocation, setSelectedLocation] = useState({
+    provinceId: "",
+    districtId: "",
+    municipalityId: "",
+    wardNo: "",
+    provinceName: "",
+    districtName: "",
+    municipalityName: "",
+  });
 
   // Fetch the list of provinces when the component mounts
   useEffect(() => {
@@ -35,8 +41,7 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
             headers: { accept: "application/json" },
           }
         );
-        console.log(response.data.province);
-        console.log("wrong ur")
+        console.log(response.data.provinces);
         setProvinces(response.data.provinces || []);
       } catch (error) {
         console.error("Error fetching provinces:", error);
@@ -48,17 +53,16 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
 
   // Fetch districts for the selected province
   useEffect(() => {
-    if (selectedProvinceId) {
+    if (selectedLocation.provinceId) {
       const fetchDistricts = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:2000/api/v1/province/${selectedProvinceId}/districts`,
-            {
-              headers: { accept: "application/json" },
-            }
+            `http://localhost:2000/api/v1/province/${selectedLocation.provinceId}/districts`,
+            { headers: { accept: "application/json" } }
           );
           setDistricts(response.data || []);
-          setSelectedDistrictId(""); // Reset district selection when province changes
+          console.log("district", response.data);
+          setSelectedLocation((prev) => ({ ...prev, districtId: "" })); // Reset district selection when province changes
         } catch (error) {
           console.error("Error fetching districts:", error);
         }
@@ -66,25 +70,23 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
 
       fetchDistricts();
     } else {
-      // Clear districts if no province is selected
       setDistricts([]);
-      setSelectedDistrictId(""); // Reset district selection
+      setSelectedLocation((prev) => ({ ...prev, districtId: "" })); // Reset district selection
     }
-  }, [selectedProvinceId]);
+  }, [selectedLocation.provinceId]);
 
   // Fetch municipalities for the selected district
   useEffect(() => {
-    if (selectedDistrictId) {
+    if (selectedLocation.districtId) {
       const fetchMunicipalities = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:2000/api/v1/district/${selectedDistrictId}/municipalities`,
-            {
-              headers: { accept: "application/json" },
-            }
+            `http://localhost:2000/api/v1/district/${selectedLocation.districtId}/municipalities`,
+            { headers: { accept: "application/json" } }
           );
           setMunicipalities(response.data || []);
-          setSelectedMunicipalityId(""); // Reset municipality selection when district changes
+          console.log("municipality", response.data);
+          setSelectedLocation((prev) => ({ ...prev, municipalityId: "" })); // Reset municipality selection when district changes
         } catch (error) {
           console.error("Error fetching municipalities:", error);
         }
@@ -92,26 +94,23 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
 
       fetchMunicipalities();
     } else {
-      // Clear municipalities if no district is selected
       setMunicipalities([]);
-      setSelectedMunicipalityId(""); // Reset municipality selection
+      setSelectedLocation((prev) => ({ ...prev, municipalityId: "" })); // Reset municipality selection
     }
-  }, [selectedDistrictId]);
+  }, [selectedLocation.districtId]);
 
   // Fetch wards for the selected municipality
   useEffect(() => {
-    if (selectedMunicipalityId) {
+    if (selectedLocation.municipalityId) {
       const fetchWards = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:2000/api/v1/municipality/${selectedMunicipalityId}/wards`,
-            {
-              headers: { accept: "application/json" },
-            }
+            `http://localhost:2000/api/v1/municipality/${selectedLocation.municipalityId}/wards`,
+            { headers: { accept: "application/json" } }
           );
           setWards(response.data || []);
           console.log(response.data);
-          setSelectedWardNo(""); // Reset ward selection when municipality changes
+          setSelectedLocation((prev) => ({ ...prev, wardNo: "" })); // Reset ward selection when municipality changes
         } catch (error) {
           console.error("Error fetching wards:", error);
         }
@@ -119,70 +118,65 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
 
       fetchWards();
     } else {
-      // Clear wards if no municipality is selected
       setWards([]);
-      setSelectedWardNo(""); // Reset ward selection
+      setSelectedLocation((prev) => ({ ...prev, wardNo: "" })); // Reset ward selection
     }
-  }, [selectedMunicipalityId]);
+  }, [selectedLocation.municipalityId]);
 
-  // Handle province change
-  const handleProvinceChange = (event) => {
-    setSelectedProvinceId(event.target.value);
+  // Handle change for province, district, municipality, and ward
+  const handleLocationChange = (event, type) => {
+    const { value } = event.target;
+    const selectedOption =
+      type === "province"
+        ? provinces.find((option) => option.id == value)
+        : type === "district"
+          ? districts.find((option) => option.id == value)
+          : municipalities.find((option) => option.id == value);
+
+    setSelectedLocation((prev) => ({
+      ...prev,
+      [`${type}Id`]: value,
+      [`${type}Name`]: selectedOption ? selectedOption.name : "",
+    }));
   };
 
-  // Handle district change
-  const handleDistrictChange = (event) => {
-    setSelectedDistrictId(event.target.value);
-  };
-
-  // Handle municipality change
-  const handleMunicipalityChange = (event) => {
-    setSelectedMunicipalityId(event.target.value);
-  };
-
-  // Handle ward change
   const handleWardChange = (event) => {
-    setSelectedWardNo(event.target.value);
+    setSelectedLocation((prev) => ({ ...prev, wardNo: event.target.value }));
   };
-  // const provinceOptions = [
-  //   { value: "province1", label: "Province 1" },
-  //   { value: "province2", label: "Province 2" },
-  //   { value: "province3", label: "Province 3" },
-  //   // Add more options as needed
-  // ];
 
-  // // Define municipality options
-  // const districtOptions = [
-  //   { value: "District1", label: "District 1" },
-  //   { value: "District2", label: "District 2" },
-  //   { value: "District3", label: "District 3" },
-  //   // Add more options as needed
-  // ];
-  // const municipalityOptions = [
-  //   { value: "municipality1", label: "Municipality 1" },
-  //   { value: "municipality2", label: "Municipality 2" },
-  //   { value: "municipality3", label: "Municipality 3" },
-  //   // Add more options as needed
-  // ];
+  const submit = async () => {
+    const { provinceName, districtName, municipalityName, wardNo } =
+      selectedLocation;
+    console.log("Selected Province:", provinceName);
+    console.log("Selected District:", districtName);
+    console.log("Selected Municipality:", municipalityName);
+    console.log("Selected Ward No:", wardNo);
 
-  // // Define ward options
-  // const wardOptions = [
-  //   { value: "ward1", label: "Ward 1" },
-  //   { value: "ward2", label: "Ward 2" },
-  //   { value: "ward3", label: "Ward 3" },
-  //   // Add more options as needed
-  // ];
-  const submit = async ({ province, district, municipality, ward }) => {
-    const updatedUser = await updateProfile(
-      province,
-      district,
-      municipality,
-      ward
-    );
-    console.log(updatedUser);
-    onClose();
-    dispatch(login(updatedUser?.data));
+    if (!provinceName || !districtName || !municipalityName || !wardNo) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      localStorage.setItem("selectedProvinceName", provinceName);
+      localStorage.setItem("selectedDistrictName", districtName);
+      localStorage.setItem("selectedMunicipalityName", municipalityName);
+      localStorage.setItem("selectedWardNo", wardNo);
+      const updatedUser = await updateProfile(
+        provinceName,
+        districtName,
+        municipalityName,
+        wardNo
+      );
+
+      console.log("Profile updated:", updatedUser);
+      onClose();
+      dispatch(login(updatedUser?.data));
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
   };
+
   return (
     <>
       {isOpen && (
@@ -194,33 +188,20 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
             <div className="text-base w-full">
               <div className="mb-4 text-base flex justify-between hover:cursor-pointer">
                 <div>Select Your Location</div>
-                <img
-                  src={cross}
-                  className="w-4 h-4"
-                  alt=""
-                  srcset=""
-                  onClick={onClose}
-                />
+                <img src={cross} className="w-4 h-4" alt="" onClick={onClose} />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16 sm:mb-0">
-                {/* {/* <Select
-                  type="Province"
-                  options={provinceOptions}
-                  special="w-full"
-                  {...register("province", { required: true })}
-                /> */}
                 <div className="rounded-xl w-full">
                   <select
                     className={`text-[10px] lg:text-base xl:text-lg appearance-none w-full h-12 bg-white border border-[#E2E7ED] text-gray-700 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500`}
                     {...register("province", { required: true })}
-                    type="province"
-                    onChange={handleProvinceChange}
+                    onChange={(e) => handleLocationChange(e, "province")}
                   >
                     <option value="" disabled selected>
                       Province
                     </option>
-                    {provinces.map((option) => (
-                      <option key={option.id} value={option.id}>
+                    {provinces.map((option, index) => (
+                      <option key={index} value={option.id}>
                         {option.name}
                       </option>
                     ))}
@@ -230,8 +211,7 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                   <select
                     className={`text-[10px] lg:text-base xl:text-lg appearance-none w-full h-12 bg-white border border-[#E2E7ED] text-gray-700 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500`}
                     {...register("district", { required: true })}
-                    type="district"
-                    onChange={handleDistrictChange}
+                    onChange={(e) => handleLocationChange(e, "district")}
                   >
                     <option value="" disabled selected>
                       District
@@ -247,8 +227,7 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                   <select
                     className={`text-[10px] lg:text-base xl:text-lg appearance-none w-full h-12 bg-white border border-[#E2E7ED] text-gray-700 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500`}
                     {...register("municipality", { required: true })}
-                    type="Municipality"
-                    onChange={handleMunicipalityChange}
+                    onChange={(e) => handleLocationChange(e, "municipality")}
                   >
                     <option value="" disabled selected>
                       Municipality
@@ -260,19 +239,17 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
                     ))}
                   </select>
                 </div>
-                <div className="rounded-xl w-full ">
+                <div className="rounded-xl w-full">
                   <select
                     className={`text-[10px] lg:text-base xl:text-lg appearance-none w-full h-12 bg-white border border-[#E2E7ED] text-gray-700 px-4 pr-10 rounded-xl leading-tight focus:outline-none focus:border-gray-500`}
-                    {...register("ward", { required: true })}
-                    type="Ward"
-                  
+                    {...register("wardNo", { required: true })}
                     onChange={handleWardChange}
                   >
                     <option value="" disabled selected>
-                      Ward
+                      Ward No
                     </option>
                     {wards.map((option) => (
-                      <option key={option.id} value={option.id}>
+                      <option key={option} value={option}>
                         {option}
                       </option>
                     ))}
