@@ -18,6 +18,7 @@ const useCheckAuthStatus = () => {
         console.log("checkAuthStatus",response);
         if (response.data.authenticated) {
           dispatch(login(response.data.userProfile));
+          console.log(response.data.userProfile);
         } else {
           dispatch(logout());
         }

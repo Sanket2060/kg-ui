@@ -53,7 +53,7 @@ function Services() {
         <div className="text-2xl sm:text-3xl lg:text-[48px] leading-tight sm:leading-[48px] lg:leading-[72px] mb-6 font-semibold">
           <span className="text-[#6361DC] font-Poppins">Expert's</span> With Us
         </div>
-        <div className="people flex flex-col items-center largemobiles:items-start largemobiles:flex-row largemobiles:flex-wrap  *:mb-10 lg:mb-0 justify-around  w-screen">
+        <div className="people flex flex-row items-center largemobiles:items-start largemobiles:flex-row largemobiles:flex-wrap  *:mb-10 lg:mb-0 justify-around  w-screen">
           <Person
             name="Abhisekh Shakya"
             place="Inspector,Kathmandu"

@@ -10,17 +10,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.0",
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.6.8",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "cors": "^2.8.5",
     "entoany": "^1.1.13",
+    "embla-carousel-autoplay": "^8.1.8",
+    "embla-carousel-react": "^8.1.7",
+    "lucide-react": "^0.428.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.4",
     "react-icons": "^5.2.1",
     "react-pdf": "^9.1.0",
     "react-router-dom": "^6.23.1",
-    "react-toastify": "^10.0.5"
+    "react-toastify": "^10.0.5",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
