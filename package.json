@@ -13,7 +13,7 @@
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
-    "entoany": "^1.1.0",
+    "entoany": "^1.1.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.4",
