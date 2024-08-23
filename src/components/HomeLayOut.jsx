@@ -35,10 +35,10 @@ import Footer from "./Footer";
       </div>
       <PopupRegister
         isOpen={isPopupOpenRegister}
-        onClose={closePopupRegister}
-        onLogin={openPopupLogin}
+        closePpRegister={closePopupRegister}
+        openPpLogin={openPopupLogin}
       />
-      <PopupLogin isOpen={isPopupOpenLogin} onClose={closePopupLogin} />
+      <PopupLogin isOpen={isPopupOpenLogin} onClose={closePopupLogin} openPpRegister={openPopupRegister} />
     </div>
   );
 }

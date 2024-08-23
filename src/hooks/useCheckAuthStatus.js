@@ -15,10 +15,10 @@ const useCheckAuthStatus = () => {
             withCredentials: true,
           }
         );
-        console.log("checkAuthStatus",response);
-        if (response.data.authenticated) {
+        console.log("checkAuthStatus",response.data.authenticated);
+        if (response.data.authenticated ) {
           dispatch(login(response.data.userProfile));
-          console.log(response.data.userProfile);
+          console.log(response.data.userProfile.user);
         } else {
           dispatch(logout());
         }
@@ -32,7 +32,10 @@ const useCheckAuthStatus = () => {
     checkAuthStatus();
   }, [dispatch]);
 
+
   return loading;
 };
 
+
 export default useCheckAuthStatus;
+

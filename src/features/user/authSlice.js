@@ -1,25 +1,27 @@
  // authSlice.js
  import { createSlice } from '@reduxjs/toolkit';
 
+
  const authSlice = createSlice({
-   name: 'auth',
+   name: "auth",
    initialState: {
-     isAuthenticated:false,
-     userDetails:null
- 
+     isAuthenticated: false,
+     userDetails: null,
+     user: null,
    },
    reducers: {
-     login: (state,action) => {
+     login: (state, action) => {
        // console.log(action.payload);
        // console.log(action.payload.userDetails);
 
        state.isAuthenticated = true;
-       state.userDetails=action.payload;
+       state.userDetails = action.payload;
+       state.user = action.payload;
      },
      logout: (state) => {
        console.log("Trying to empty redux store");
        state.isAuthenticated = false;
-       state.userDetails=null
+       state.userDetails = null;
      },
    },
  });

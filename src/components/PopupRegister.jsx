@@ -1,21 +1,17 @@
-import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import kaagazpatralogo from "../assets/kaagazpatralogo.png";
-import Input from "./Input";
 import Button from "./Button";
 import cross from "../assets/cross.png";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../features/user/authSlice.js";
 import { toast } from "react-toastify";
 
-const PopupRegister = ({ isOpen, onClose, onLogin }) => {
+const PopupRegister = ({ isOpen, closePpRegister, openPpLogin }) => {
   const backend_url = import.meta.env.VITE_REACT_APP_BASE_URL;
   const { register, formState, handleSubmit, getValues } = useForm();
   const { errors } = formState;
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const authenticate = async ({
     firstName,
     lastName,
@@ -29,6 +25,8 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
         `${backend_url}/auth/register`,
         {
           name: firstName,
+          lastName,
+          mobile,
           email,
           password,
         },
@@ -38,12 +36,11 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
 
       console.log("Response from register:", response);
       if (response) {
-        onLogin();
-        onClose();
-
+        openPpLogin();
+        closePpRegister();
       }
 
-      // Second API call to fetch user profile details after successful registration
+      // // Second API call to fetch user profile details after successful registration
       // const userProfileResponse = await axios.get(
       //   `${backend_url}/getDetails/fetchUserProfileDetails`,
       //   {
@@ -62,7 +59,11 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
       dispatch(logout()); // Log out if there's an error
     }
   };
+ const goToLogin=()=>{
+  closePpRegister()
+  openPpLogin()
 
+ }
   return (
     <>
       {isOpen && (
@@ -70,7 +71,7 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
           <div className="bg-white relative rounded-lg w-[90%] md:w-[60%] h-[95%] px-14 flex flex-col items-center overflow-scroll">
             <div
               className="flex justify-end absolute right-5 top-5 hover:cursor-pointer"
-              onClick={onClose}
+              onClick={closePpRegister}
             >
               <img src={cross} className="w-4 h-4" alt="Close" />
             </div>
@@ -87,8 +88,8 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
                     type="text"
                     name="firstName"
                     id=""
-                    placeholder="Sandesh"
-                    className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                    placeholder="HariOm"
+                    className={`${"w-full h-12 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
                     {...register(`${"firstName"}`, {
                       required: `${"firstName"} is required`,
                       pattern: {
@@ -107,8 +108,8 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
                     type="text"
                     name="lastName"
                     id=""
-                    placeholder="Ghimire"
-                    className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                    placeholder="Gupta"
+                    className={`${"w-full h-12 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
                     {...register(`${"lastName"}`, {
                       required: `${"lastName"} is required`,
                       pattern: {
@@ -128,8 +129,8 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
                   type="email"
                   name="email"
                   id=""
-                  placeholder="sandeshghimire202@gmail.com"
-                  className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                  placeholder="Hariom202@gmail.com"
+                  className={`${"w-full h-12 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
                   {...register(`${"email"}`, {
                     required: `${"email"} is required`,
                     pattern: /^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$/,
@@ -146,8 +147,8 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
                   type="text"
                   name="mobile"
                   id=""
-                  placeholder="9862383881"
-                  className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                  placeholder="9821973432"
+                  className={`${"w-full h-12 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
                   {...register(`${"mobile"}`, {
                     required: `${"mobile"} is required`,
                     pattern: {
@@ -167,7 +168,7 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
                   name="password"
                   id=""
                   placeholder="Enter Password"
-                  className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                  className={`${"w-full h-12 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
                   {...register(`${"password"}`, {
                     required: "Password is required",
                     minLength: {
@@ -187,7 +188,7 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
                   name="confirmPassword"
                   id=""
                   placeholder="Confirm Password"
-                  className={`${"w-full h-16 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
+                  className={`${"w-full h-12 special"} px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2`}
                   {...register(`${"confirmPassword"}`, {
                     required: "Password is required",
                     validate: (value) =>
@@ -208,7 +209,7 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
             </form>
             <div className="font-semibold mb-10">
               Already Have an account?{" "}
-              <span className="text-[#6361DC]">Log in</span>
+              <span className="text-[#6361DC] cursor-pointer" onClick={goToLogin}>Log in</span>
             </div>
           </div>
         </div>

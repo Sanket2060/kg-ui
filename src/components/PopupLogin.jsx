@@ -1,17 +1,14 @@
-import React, { useState } from "react";
 import kaagazpatralogo from "../assets/kaagazpatralogo.png";
-import Input from "./Input";
 import Button from "./Button";
 import cross from "../assets/cross.png";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../features/user/authSlice.js";
 import axios from "axios";
 import { toast } from "react-toastify";
-const PopupLogin = ({ isOpen, onClose }) => {
+import { useState } from "react";
+const PopupLogin = ({ isOpen, onClose, openPpRegister }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -46,6 +43,11 @@ const PopupLogin = ({ isOpen, onClose }) => {
       console.log("Error:", error);
     }
   };
+  const gotoRegister=()=>{
+    onClose();
+     openPpRegister();
+
+  }
 
   return (
     <>
@@ -70,7 +72,7 @@ const PopupLogin = ({ isOpen, onClose }) => {
                 <div>Email Address</div>
                 <input
                   placeholder="sandeshghimire202@gmail.com"
-                  className="w-full h-16 px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2"
+                  className="w-full h-12 px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2"
                   name="email"
                   {...register("email", { required: "Email is required" })}
                 />
@@ -83,7 +85,7 @@ const PopupLogin = ({ isOpen, onClose }) => {
                 <input
                   type="password"
                   placeholder="*************"
-                  className="w-full h-16 px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2"
+                  className="w-full h-12 px-4 py-2 rounded-2xl border-2 border-[#30455E] focus:outline-none mb-4 mt-2"
                   name="password"
                   {...register("password", {
                     required: "Password is required",
@@ -108,7 +110,7 @@ const PopupLogin = ({ isOpen, onClose }) => {
             </form>
             <div className="font-semibold mb-10">
               Not Registered Yet?{" "}
-              <span className="text-[#6361DC]">Sign In</span>
+              <span className="text-[#6361DC] cursor-pointer" onClick={gotoRegister}>Sign In</span>
             </div>
           </div>
         </div>

@@ -7,13 +7,19 @@ import Services from "./pages/Services";
 import DashboardMain from "./components/DashboardMain";
 import GenerateDocument from "./pages/utils/GenerateDocument";
 import PrintingDocument from "./pages/utils/PrintingDocument";
-import Kuruwa from "./pages/utils/Kuruwa";
+import Kuruwa from "./AdminDashboard/Kuruwa";
 import NotaryPublic from "./pages/utils/NotaryPublic";
 import ProtectedRoute, {
+  AdminRoute,
   DirectAccessOnAccessToken,
 } from "./components/ProtectedRoute";
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
+import AdminLayout from "./AdminDashboard/AdminLayout";
+import AdminMain from "./AdminDashboard/AdminMain";
+import TotalUser from "./AdminDashboard/TotalUser";
+import KagazPatraUser from "./AdminDashboard/KagazPatraUser";
+import Setting from "./AdminDashboard/Setting";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -23,7 +29,7 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <DirectAccessOnAccessToken redirectOnSuccess="/dashboard">
-            <HomeLayOut/>
+            <HomeLayOut />
           </DirectAccessOnAccessToken>
         ),
         children: [
@@ -39,6 +45,36 @@ const router = createBrowserRouter([
             path: "about",
             element: <About />,
           },
+        ],
+      },
+      {
+        path: "admindashboard",
+        element: (
+          <AdminRoute >
+            <AdminLayout />
+          </AdminRoute>
+        ),
+        children: [
+          {
+            path: "",
+            element: <AdminMain />,
+          },
+          {
+            path: "totalusers",
+            element: <TotalUser/>,
+          },
+          {
+            path: "kuruwa",
+            element: <Kuruwa/>,
+          },
+          {
+            path: "kagazpatrauser",
+            element: <KagazPatraUser/>,
+          },
+          {
+            path:"setting",
+            element:<Setting/>
+          }
         ],
       },
 
