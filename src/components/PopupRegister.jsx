@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 const PopupRegister = ({ isOpen, closePpRegister, openPpLogin }) => {
   const backend_url = import.meta.env.VITE_REACT_APP_BASE_URL;
-  const { register, formState, handleSubmit, getValues } = useForm();
+  const { register, formState, handleSubmit, getValues,reset } = useForm();
   const { errors } = formState;
   const dispatch = useDispatch();
   const authenticate = async ({
@@ -37,6 +37,7 @@ const PopupRegister = ({ isOpen, closePpRegister, openPpLogin }) => {
       console.log("Response from register:", response);
       if (response) {
         openPpLogin();
+       reset('')
         closePpRegister();
       }
 
@@ -62,6 +63,7 @@ const PopupRegister = ({ isOpen, closePpRegister, openPpLogin }) => {
  const goToLogin=()=>{
   closePpRegister()
   openPpLogin()
+  reset('')
 
  }
   return (
@@ -204,7 +206,7 @@ const PopupRegister = ({ isOpen, closePpRegister, openPpLogin }) => {
               </div>
               <Button
                 text="Register"
-                special="w-80 h-16 largemobiles:w-80 mobile:w-60"
+                special="w-64 h-16 largemobiles:w-80 mobile:w-60"
               />
             </form>
             <div className="font-semibold mb-10">

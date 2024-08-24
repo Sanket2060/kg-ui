@@ -25,6 +25,7 @@ const PopupLogin = ({ isOpen, onClose, openPpRegister }) => {
         { email, password },
         { withCredentials: true } // Include credentials (cookies) in the request
       );
+      reset('')
       setLoginError(""); // Clear login error
       // Second API call: fetch user details (only runs if the first API call succeeds)
       const userDetailsResponse = await axios.get(
@@ -46,6 +47,7 @@ const PopupLogin = ({ isOpen, onClose, openPpRegister }) => {
   const gotoRegister=()=>{
     onClose();
      openPpRegister();
+     reset('')
 
   }
 

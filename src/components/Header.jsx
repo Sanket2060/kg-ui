@@ -56,15 +56,15 @@ function Header({ openPopupRegister, openPopupLogin }) {
         </div>
 
         {isMenuOpen && (
-          <div className="fixed top-0 left-0 w-full h-full bg-white flex flex-col items-center justify-center z-50">
+          <div className="fixed top-0 left-0 w-full h-[40%] bg-white flex flex-col items-center justify-center z-50 drop-shadow-md">
             <AiOutlineClose
               size={30}
               className="absolute top-4 right-4 hover:cursor-pointer"
               onClick={toggleMenu}
             />
-            <span className="mb-4 w-9 h-8 border-[1px] border-[#30455E] flex justify-center items-center rounded-lg hover:cursor-pointer">
+            {/* <span className="mb-4 w-9 h-8 border-[1px] border-[#30455E] flex justify-center items-center rounded-lg hover:cursor-pointer">
               <img src={darkmode} alt="dark mode image" className="w-6 h-6" />
-            </span>
+            </span> */}
             <Link to="/" className="mb-4" onClick={toggleMenu}>
               Home
             </Link>

@@ -304,7 +304,7 @@ const UserTable = () => {
                   <Button
                     onClick={() => toggleVerification(user.id, user.isVerified)}
                     className={`py-1 px-3 rounded ${
-                      user.isVerified ? "bg-green-500" : "bg-red-500"
+                      user.isVerified ? "bg-green-500 px-5" : "bg-red-500 "
                     } text-white`}
                   >
                     {user.isVerified && user.isVerified.toString() === "true"
