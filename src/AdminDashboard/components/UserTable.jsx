@@ -183,7 +183,7 @@ const UserTable = () => {
    const users = async () => {
      try {
        const response = await axios.get(
-         "http://192.168.18.27:2000/api/v1/auth/users",
+         "http://localhost:2000/api/v1/auth/users",
          { headers: { accept: "application/json" } }
        );
 
@@ -209,7 +209,26 @@ const UserTable = () => {
    };
    users();
  }, []);
-
+  const toggleVerification = async (userId, action) => {
+    try {
+       const endpoint =
+         action === "true" ? "/api/v1/verify" : "/api/v1/unverify";
+       const response = await axios.put(
+         `http://localhost:2000${endpoint}`,
+         { userid: userId }, // Passing userId in the body
+         { headers: { accept: "application/json" } }
+       );
+       console.log("Verification status updated:", response.data.message);
+      // Update the local state to reflect the change
+      setFilteredInvoices(
+        filteredInvoices.map((user) =>
+          user.id === userId ? { ...user, isVerified: !action } : user
+        )
+      );
+    } catch (error) {
+      console.error("Error updating verification status:", error);
+    }
+  };
 
   return (
     <Card className="w-[100%] border-[1px] px-10">
@@ -256,13 +275,6 @@ const UserTable = () => {
                 <TableCell className="font-medium">{user.id}</TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>
-                  {/* {user.paymentStatus && (
-                  <span
-                    className={` px-4 py-1 rounded-md ${user.paymentStatus === "Paid" ? "bg-lime-500 text-blue-100 px-7 " : "bg-red-600 text-blue-100"}`}
-                  >
-                    {user.paymentStatus}
-                  </span>
-                )} */}{" "}
                   {user.isVerified && user.isVerified.toString() === "true" ? (
                     <span className="p-2  rounded-lg px-4 border-2 border-green-500 text-green-500 font-Poppins font-medium">
                       Verified
@@ -289,7 +301,16 @@ const UserTable = () => {
                     : "USER/GENERATEPDF"}
                 </TableCell>
                 <TableCell>
-                  <Button> button</Button>
+                  <Button
+                    onClick={() => toggleVerification(user.id, user.isVerified)}
+                    className={`py-1 px-3 rounded ${
+                      user.isVerified ? "bg-green-500" : "bg-red-500"
+                    } text-white`}
+                  >
+                    {user.isVerified && user.isVerified.toString() === "true"
+                      ? "Verified"
+                      : "unVerified"}
+                  </Button>
                 </TableCell>
               </TableRow>
             );

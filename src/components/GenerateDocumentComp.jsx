@@ -18,7 +18,7 @@ function GenerateDocumentComp() {
   const navigate = useNavigate();
   const { register, formState, handleSubmit, getValues } = useForm();
   const user = useSelector((state) => state.auth.userDetails);
-  const userProvince = user.province;
+  // const userProvince = user.province;
   const [work, setWork] = useState("");
   const [currentFields, setCurrentFields] = useState([]);
   const options = [

@@ -23,18 +23,7 @@ const AdminMain= () => {
             id="upper"
             className="flex items-center my-5 justify-start pl-4 md:pl-20 w-full h-24 gap-4 md:gap-10  "
           >
-            <div className="bg-[#D9D9D9] h-16 w-16 md:h-20 md:w-20 justify-center items-center text-center flex rounded-full">
-              <Fa500Px />
-            </div>
-            <div className="bg-[#D9D9D9] h-16 w-16 md:h-20 md:w-20 justify-center items-center text-center flex rounded-full">
-              <Fa500Px />
-            </div>
-            <div className="bg-[#D9D9D9] h-16 w-16 md:h-20 md:w-20 justify-center items-center text-center flex rounded-full">
-              <Fa500Px />
-            </div>
-            <div className="bg-[#D9D9D9] h-16 w-16 md:h-20 md:w-20 justify-center items-center text-center flex rounded-full">
-              <Fa500Px />
-            </div>
+            
           </div>
           {/**middle */}
           <div

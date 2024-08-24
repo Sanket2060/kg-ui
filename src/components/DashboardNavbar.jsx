@@ -1,18 +1,26 @@
 import search from "../assets/search.png";
-import rings from "../assets/rings.png";
-import moon2 from "../assets/person3.png";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { Avatar, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useState } from "react";
 import UserProfile from "./UserProfile";
+import person from "../assets/person3.png"
 
 function DashboardNavbar() {
   const [isProfile,setIsProfile]=useState(false)
   const users = useSelector((state) => state.auth.user);
  const { isAuthenticated } = useSelector((state) => state.auth);
- 
+ console.log(users?.user);
+//  const parts = users?.user.name.split(" ");
+
+//      // Extract the first letter of the first and last parts
+//      const firstInitial = parts[0].charAt(0).toUpperCase()
+//     const lastInitial =
+//       parts.length > 1 ? parts[parts.length - 1].charAt(0).toUpperCase() : "";
+
+// console.log(parts[0])
+// console.log(firstInitial,lastInitial)
   const provinceOptions = [
     { value: "province1", label: "Province 1" },
     { value: "province2", label: "Province 2" },
@@ -58,7 +66,7 @@ function DashboardNavbar() {
         <div className="flex pt-5 lg:mt-0 w-full gap-8 justify-between lg:justify-end">
           <span className=" text-3xl">
             <Link to={"/admindashboard"}>
-              {isAuthenticated && users?.user.role == "SUPERADMIN" ? (
+              {isAuthenticated && users?.user.role === "SUPERADMIN" ? (
                 <Button className="bg-slate-500">Admin</Button>
               ) : (
                 ""
@@ -74,11 +82,16 @@ function DashboardNavbar() {
               id=""
               placeholder="Search"
             />
-            <img src={rings} className="w-4 h-4" alt="" />
+           
           </div>
-          <div className=" cursor-pointer">
-            <Avatar onClick={userProfileHandle}>
-              <AvatarImage src={moon2} />
+          <div className=" cursor-pointer" onClick={userProfileHandle}>
+            <Avatar>
+            <AvatarImage src={person} alt='image'/>
+              {/* <AvatarFallback>
+                {" "}
+                {firstInitial}
+                {lastInitial}
+              </AvatarFallback> */}
             </Avatar>
           </div>
         </div>
