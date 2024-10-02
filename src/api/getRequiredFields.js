@@ -1,13 +1,14 @@
 import axios from "axios";
+import { getEnglishProvinceAndDistrict } from "./getEnglishProvinceAndDistrict";
 export const getRequiredFields = async (work, user) => {
   try {
+    console.log("Work from getRequiredFields",work);
     let response;
     if (user) {
-      // const response = await axios.get(
-      //   `${import.meta.env.VITE_REACT_APP_BASE_URL}/template-fields/${user?.province}/${user?.district}/${work}`
-      // );
+     console.log("user",user);
+     let { englishProvince, englishDistrict } = getEnglishProvinceAndDistrict(`${user.province}`, `${user.district}`); // Translate Nepali province and district to English
       response = await axios.get(
-        `${import.meta.env.VITE_REACT_APP_BASE_URL}/template-fields/Gandaki/lamjung/${work}`
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/template-fields/${englishProvince}/${englishDistrict}/${work}`
       );
     }
     console.log(response);

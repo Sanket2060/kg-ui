@@ -20,12 +20,25 @@ function GenerateDocumentComp() {
   const [currentFields, setCurrentFields] = useState([]);
   
   const options = [
-    { value: "rajinamasifarish", label: "Rajinama Sifarish" },
     { value: "nagariktasifarish", label: "Nagarikta Sifarish" },
-    { value: "option3", label: "Option 3" },
+    { value: "bipadasifarishpdf", label: "Bipadapida" },
+    { value: "chalchalanpramanitprayozan", label: "Chalchalan Pramanit Prayozan" },
+    { value: "chhutjaggadartagaripau", label: "Chhut Jagga Darta Gari Pau" },
+    { value: "createrahadanisifarishpdf", label: "Create Rahadani Sifarish" },
+    { value: "createtarjalipdf", label: "Tarjali Sifarish" },
+    { value: "doshropatikonaamkonagarikta", label: "Doshro Pati Ko Naam Ko Nagarikta" },
+    { value: "nabalakparichayapatra", label: "Nabalak Parichaya Patra-Children writing" },
+    { value: "nabalikparichayapatraparentwriting", label: "Nabalik Parichaya Patra-Parent Writing" },
+    { value: "patikonaamtharsamsodhitnagarikta", label: "Patiko Naam Thar Samsodhit Nagarikta" },
+    { value: "photopramanitgaripau", label: "Photo Pramanit Garipau" },
+    { value: "puranorahadaniharainayakoprapti", label: "Purano Rahadani Harai Naya Ko Prapti" },
+    { value: "purjakopratilipi", label: "Purja Ko Pratilipi" },
+    { value: "rahadanisifarishbibidkaran", label: "Rahadani Sifaris Bibid Karan" }
   ];
+  
 
   const onWorkChange = async (work) => {
+    console.log("Work is:",work);
     const Fields = await getRequiredFields(work, user);
     setWork(work);
     setCurrentFields(Fields);
@@ -66,7 +79,7 @@ function GenerateDocumentComp() {
        selectedMunicipalityName: municipality || "",
        selectedWardNo: ward || "",
      });
-   }, []);
+   });
 
   return (
     <div className="font-Poppins text-base mx-2 lg:ml-24 lg:mr-48 flex flex-col">
