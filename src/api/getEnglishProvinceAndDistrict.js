@@ -1,6 +1,6 @@
 const provinceMapping = {
-  "प्रदेश नं. १": "province_1",
-  "प्रदेश नं. २": "province_2",
+  "प्रदेश न. १": "province_1",
+  "प्रदेश न. २": "province_2",
   "बाग्मती": "bagmati",
   "गण्डकी": "gandaki",
   "लुम्बिनी": "lumbini",
@@ -86,7 +86,8 @@ const districtMapping = {
   "सोलुखुम्बु": "solukhumbu",
   "तानाहुं": "tanahun",
   "रौतहट": "rautahat",
-  "कालीकोट": "kalikot"
+  "कालीकोट": "kalikot",
+  "मुस्ताङ": "mustang"
 };
 
   
