@@ -53,7 +53,7 @@ function GenerateDocumentComp() {
   };
 
   const submitGenerationDetails = async (data) => {
-    const response = await generateDocument({ ...data, work });
+    const response = await generateDocument({ ...data, work,user});
     if (response) {
       dispatch(setPdfUrl(response.data.document.filePath));
       navigate("/dashboard/printdocument");
@@ -101,7 +101,7 @@ function GenerateDocumentComp() {
         <div className="mb-5">Select Required Documents</div>
         <div className="mb-5">
           <Select
-            type="Rajinama Sifarish"
+            type="Select a work"
             options={options}
             special="w-72"
             onChange={onWorkChange}
