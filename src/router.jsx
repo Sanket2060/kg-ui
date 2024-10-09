@@ -14,6 +14,8 @@ import ProtectedRoute, {
 } from "./components/ProtectedRoute";
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
+import Profile from "./pages/Profile.jsx"
+import ProfileLayout from "./pages/utils/ProfileLayout";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -72,6 +74,14 @@ const router = createBrowserRouter([
           },
         ],
       },
+     {
+       path:"profile",
+       element:(
+         <ProtectedRoute>
+          <ProfileLayout/>
+        </ProtectedRoute>
+       )
+        }
     ],
   },
 ]);

@@ -4,8 +4,11 @@ import rings from "../assets/rings.png";
 import moon2 from "../assets/moon2.png";
 import Select from "./Select";
 import { useSelector } from "react-redux";
+import { CgProfile } from "react-icons/cg";
+import {  useNavigate } from "react-router-dom";
 function DashboardNavbar() {
   const user = useSelector((state) => state.auth.userDetails);
+  const navigate=useNavigate();
   const provinceOptions = [
     { value: "province1", label: "Province 1" },
     { value: "province2", label: "Province 2" },
@@ -52,8 +55,11 @@ function DashboardNavbar() {
             />
             <img src={rings} className="w-4 h-4" alt="" srcset="" />
           </div>
-          <div className="w-10 h-10 border-[1px] border-[#E2E7ED] p-2 rounded-xl">
+          <div className="w-10 h-10 border-[1px] border-[#E2E7ED] p-2 rounded-xl hover:cursor-pointer">
             <img src={moon2} alt="" srcset="" />
+          </div>
+          <div className="flex items-center border-[#E2E7ED] hover:cursor-pointer" onClick={()=>navigate('/profile')}>
+          <CgProfile size={30}/>
           </div>
         </div>
       </div>
