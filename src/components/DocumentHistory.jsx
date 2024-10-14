@@ -3,7 +3,9 @@ import React from "react";
 const DocumentHistory = ({ documents }) => {
   return (
     <div className="bg-white shadow-md rounded-lg px-5 py-1 mt-6">
-      <div className="font-semibold text-4xl mb-4 pb-2">Generated Document History</div>
+      <div className="font-semibold text-4xl mb-4 pb-2">
+        Generated Document History
+      </div>
       <div className="space-y-4">
         {documents.length === 0 ? (
           <p>No documents generated yet.</p>

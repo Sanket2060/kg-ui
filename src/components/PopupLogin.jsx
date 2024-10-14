@@ -40,7 +40,7 @@ const PopupLogin = ({ isOpen, onClose }) => {
       if (error?.response?.data?.message) {
         setLoginError(error.response.data.message);
       } else {
-        setLoginError("An error occurred");
+        setLoginError("Something went wrong.");
       }
       dispatch(logout());
       console.log("Error:", error);

@@ -28,9 +28,10 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
       const response = await axios.post(
         `${backend_url}/auth/register`,
         {
-          name: firstName,
+          name: `${firstName} ${lastName}`,
           email,
           password,
+          mobile,
         },
         { withCredentials: true }
         // mobile, // Add other fields if necessary
@@ -40,7 +41,6 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
       if (response) {
         onLogin();
         onClose();
-
       }
 
       // Second API call to fetch user profile details after successful registration
@@ -59,6 +59,16 @@ const PopupRegister = ({ isOpen, onClose, onLogin }) => {
         "Error during registration or fetching user profile:",
         error
       );
+      if (error.response.data.message)
+        toast.error(`${error.response.data.message}`, {
+          position: "top-right",
+        });
+      else {
+        toast.error(`Something went wrong`, {
+          position: "top-right",
+        });
+      }
+
       dispatch(logout()); // Log out if there's an error
     }
   };
