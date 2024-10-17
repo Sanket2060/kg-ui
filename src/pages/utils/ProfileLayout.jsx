@@ -3,36 +3,43 @@ import { useState, useEffect } from "react";
 import Profile from "../Profile";
 import Sideboard from "@/components/Sideboard";
 import DocumentHistory from "@/components/DocumentHistory";
-
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 function ProfileLayout() {
+  const user = useSelector((state) => state.auth.userDetails);
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const documents = [
-    {
-      title: "Document 1",
-      date: "2024-10-08",
-      downloadLink: "http://example.com/doc1.pdf",
-    },
-    {
-      title: "Document 2",
-      date: "2024-10-09",
-      downloadLink: "http://example.com/doc2.pdf",
-    },
-    {
-        title: "Document 2",
-        date: "2024-10-09",
-        downloadLink: "http://example.com/doc2.pdf",
-      },
-      {
-        title: "Document 2",
-        date: "2024-10-09",
-        downloadLink: "http://example.com/doc2.pdf",
-      },
-      {
-        title: "Document 2",
-        date: "2024-10-09",
-        downloadLink: "http://example.com/doc2.pdf",
-      },
-  ];
+  const [documents, setDocuments] = useState([]);
+  useEffect(() => {
+    const getDocumentHistory = async () => {
+      try {
+        // Assuming your API endpoint for getting document history is '/api/documents/history'
+        const response = await axios.get(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/documents/${user?.id}`,
+          { withCredentials: true }
+        );
+
+        // Assuming the API returns data in the format { success: true, documents: [...] }
+        if (response.data.success) {
+          console.log("Document History:", response.data.documents);
+          console.log("type of response",typeof response.data.documents)
+          setDocuments(response.data.documents); // Set documents here
+        } else {
+          console.error(
+            "Error fetching document history:",
+            response.data.error
+          );
+        }
+      } catch (error) {
+        console.error("API call error:", error);
+      }
+    };
+    getDocumentHistory();
+  }, [user]);
+
+  useEffect(() => {
+    console.log(documents);
+  }, [documents]);
+
   useEffect(() => {
     setPopupOpen(true);
   }, []);

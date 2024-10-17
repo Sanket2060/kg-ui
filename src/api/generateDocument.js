@@ -17,6 +17,7 @@ export const generateDocument = async (props) => {
         withCredentials: true,
       }
     );
+    console.log("generated document response", response);
     return response;
   } catch (error) {
     console.log("Error at generating document ", error);
