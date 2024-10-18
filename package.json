@@ -16,9 +16,10 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
-    "entoany": "^1.1.13",
+    "crypto-js": "^4.2.0",
     "embla-carousel-autoplay": "^8.1.8",
     "embla-carousel-react": "^8.1.7",
+    "entoany": "^1.1.13",
     "lucide-react": "^0.428.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -28,7 +29,8 @@
     "react-router-dom": "^6.23.1",
     "react-toastify": "^10.0.5",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
