@@ -201,14 +201,14 @@ function GenerateDocumentComp() {
               type="hidden"
               id="success_url"
               name="success_url"
-              value="https://esewa.com.np"
+              value="http://localhost:3000/success"
               required
             />
             <input
               type="hidden"
               id="failure_url"
               name="failure_url"
-              value="https://google.com"
+              value="http://localhost:3000/failure"
               required
             />
             <input
@@ -241,22 +241,31 @@ function GenerateDocumentComp() {
           <div className="mb-5">Select Required Documents</div>
           <div className="mb-5">
             <Select
+              type="Select a work"
               options={options}
+              special="w-72"
               onChange={onWorkChange}
-              placeholder="Select Work"
-              required
             />
           </div>
-          {currentFields.map((field, index) => (
-            <InputGenerateDocument
-              key={index}
-              name={field.name}
-              register={register}
-              placeholder={placeholderTexts[field.name]}
-              required={field.required}
+          <div className="min-h-[20rem] lg:max-h-[20rem] border-[1px] lg:border-black rounded-md mb-6 overflow-y-auto">
+            <div className="p-6 flex flex-wrap gap-2">
+              {currentFields?.map((field) => (
+                <InputGenerateDocument
+                  key={field}
+                  inputText={field}
+                  placeholderText={placeholderTexts[field] || `Enter ${field}`}
+                  {...register(field)} // Pass register props to the component
+                />
+              ))}
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <Button
+              type="submit"
+              text="Generate"
+              special="w-44 h-10 rounded-xl"
             />
-          ))}
-          <Button type="submit" text="Generate Document" />
+          </div>
         </form>
       )}
     </div>

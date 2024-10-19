@@ -16,6 +16,8 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Profile from "./pages/Profile.jsx"
 import ProfileLayout from "./pages/utils/ProfileLayout";
+import SuccessPage from "./components/SuccessPage";
+import FailurePage from "./components/FailurePage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -81,6 +83,18 @@ const router = createBrowserRouter([
           <ProfileLayout/>
         </ProtectedRoute>
        )
+        },
+        {
+          path:'success',
+          element:(
+            <SuccessPage/>
+          )
+        },
+        {
+          path:'failure',
+          element:(
+            <FailurePage/>
+          )
         }
     ],
   },
