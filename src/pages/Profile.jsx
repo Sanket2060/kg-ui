@@ -5,14 +5,38 @@ import axios from "axios";
 import { login } from "@/features/user/authSlice";
 
 const Profile = () => {
+  // Helper function to format the profile pic URL
+  const formatProfilePicPath = (path) => {
+    if (!path) return null;
+    const formattedPath = path.replace(/\\/g, "/"); // Replace backslashes with forward slashes
+    console.log(
+      "Profile pic path",
+      `${import.meta.env.VITE_REACT_APP_BASE_URL}${formattedPath}`
+    );
+    return `${import.meta.env.VITE_REACT_APP_BASE_URL_FOR_IMAGE}/${formattedPath}`;
+  };
   const user = useSelector((state) => state.auth.userDetails);
-  const [name, setName] = useState(user?.user?.name || "");
-  const [email, setEmail] = useState(user?.user?.email || "");
-  const [mobile, setMobile] = useState(user?.user?.mobile || "");
-  const [profilePic, setProfilePic] = useState(user?.user?.profilePic || null);
-  const [profilePicFile, setProfilePicFile] = useState(null); // Store the file to upload
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [profilePic, setProfilePic] = useState(null);
+
   const dispatch = useDispatch();
 
+  // Update state when the user data is fully loaded from Redux
+  useEffect(() => {
+    if (user?.user) {
+      setName(user.user.name || "");
+      setEmail(user.user.email || "");
+      setMobile(user.user.mobile || "");
+      setProfilePic(formatProfilePicPath(user.user.profilePicUrl));
+    }
+  }, [user]);
+  const [profilePicFile, setProfilePicFile] = useState(null); // Store the file to upload
+
+  useEffect(() => {
+    console.log("profile pic", profilePic);
+  }, [profilePic]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (user.user.name && user.user.email) {
