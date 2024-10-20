@@ -12,6 +12,8 @@ import { setPdfUrl } from "../features/user/pdfFileSlice";
 import task1 from "../assets/task1.png";
 import { v4 as uuidv4 } from "uuid";
 import CryptoJS from "crypto-js";
+import axios from "axios";
+import { login } from "@/features/user/authSlice"; // Assuming `login` is the Redux action to update user data
 
 function GenerateDocumentComp() {
   const dispatch = useDispatch();
@@ -24,6 +26,9 @@ function GenerateDocumentComp() {
   const documentCount = useSelector(
     (state) => state.auth.userDetails.documentCount
   ); // Assuming `documentCount` is in Redux store
+  const documentTokens = useSelector(
+    (state) => state.auth.userDetails.user.documentTokens
+  );
   const options = [
     { value: "nagariktasifarish", label: "Nagarikta Sifarish" },
     { value: "bipadasifarishpdf", label: "Bipadapida" },
@@ -80,6 +85,19 @@ function GenerateDocumentComp() {
   const submitGenerationDetails = async (data) => {
     const response = await generateDocument({ ...data, work, user });
     if (response) {
+      try {
+        const userDetailsResponse = await axios.get(
+          `${import.meta.env.VITE_REACT_APP_BASE_URL}/getDetails/fetchUserProfileDetails`,
+          { withCredentials: true }
+        );
+        console.log("Fetched user profile details successfully.");
+        // Dispatch the login action with the fetched user profile data
+        dispatch(login(userDetailsResponse.data.userProfile));
+
+        console.log("User profile details updated successfully.");
+      } catch (error) {
+        console.error("Error fetching user profile details:", error);
+      }
       dispatch(setPdfUrl(response.data.document.filePath));
       navigate("/dashboard/printdocument");
     }
@@ -144,7 +162,7 @@ function GenerateDocumentComp() {
         </div>
       </div>
 
-      {documentCount >= 10 ? (
+      {documentCount >= 10 && documentTokens === 0 ? (
         <div className="text-center mt-10">
           <p className="text-red-600 mb-4">
             You have generated {documentCount} documents. Please pay 5 rupees
