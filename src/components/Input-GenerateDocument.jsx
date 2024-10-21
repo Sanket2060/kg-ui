@@ -4,7 +4,17 @@ import { EntoanyTextField } from "entoany";
 import { useState } from "react";
 
 const InputGenerateDocument = forwardRef(
-  ({ inputText, placeholderText, onChange, onBlur, value, name, ref, ...rest }) => {
+  ({
+    inputText,
+    placeholderText,
+    onChange,
+    onBlur,
+    value,
+    name,
+    ref,
+    optionalClass,
+    ...rest
+  }) => {
     const [enteredText, setEnteredText] = useState(value || "");
     const [selectedText, setSelectedText] = useState("");
 
@@ -27,8 +37,11 @@ const InputGenerateDocument = forwardRef(
 
     return (
       <div className="mb-2 md:px-6">
-        <label className="block font-medium text-gray-700 mb-2" htmlFor={inputText}>
-          Your {inputText}*
+        <label
+          className="block font-medium text-gray-700 mb-2"
+          htmlFor={inputText}
+        >
+          Your {inputText}{optionalClass ? "" : "*"}
         </label>
         <EntoanyTextField
           preferredLanguage="ne" // Example preferred language setting

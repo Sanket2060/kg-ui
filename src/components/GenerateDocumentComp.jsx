@@ -32,6 +32,10 @@ function GenerateDocumentComp() {
   const documentTokens = useSelector(
     (state) => state.auth.userDetails.user.documentTokens
   );
+
+  useEffect(() => {
+    console.log("current fields", currentFields);
+  }, [currentFields]);
   const options = [
     { value: "nagariktasifarish", label: "Nagarikta Sifarish" },
     { value: "bipadasifarishpdf", label: "Bipadapida" },
@@ -304,13 +308,24 @@ function GenerateDocumentComp() {
           ) : (
             <div className="min-h-[20rem] lg:max-h-[20rem] border-[1px] lg:border-black rounded-md mb-6 overflow-y-auto">
               <div className="p-6 flex flex-wrap gap-2">
-                {currentFields?.map((field) => (
+                {currentFields?.requiredFields?.map((field) => (
                   <InputGenerateDocument
                     key={field}
                     inputText={field}
                     placeholderText={
                       placeholderTexts[field] || `Enter ${field}`
                     }
+                    {...register(field)} // Pass register props to the component
+                  />
+                ))}
+                {currentFields?.optionalFields?.map((field) => (
+                  <InputGenerateDocument
+                    key={field}
+                    inputText={field}
+                    placeholderText={
+                      placeholderTexts[field] || `Enter ${field}`
+                    }
+                    optionalClass={true}
                     {...register(field)} // Pass register props to the component
                   />
                 ))}

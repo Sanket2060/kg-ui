@@ -19,7 +19,7 @@ const DocumentHistory = ({ documents }) => {
               className="flex justify-between items-center p-2 bg-gray-50 border border-gray-300 rounded-lg"
             >
               <div>
-                <div className="font-medium text-lg">{doc.templateType}</div>
+                <div className="font-medium text-lg">{doc.work}</div>
                 <div className="text-sm text-gray-600">
                   {new Date(doc.createdAt).toLocaleDateString("en-GB", {
                     year: "numeric",

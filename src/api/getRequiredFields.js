@@ -14,7 +14,7 @@ export const getRequiredFields = async (work, user) => {
       );
     }
     console.log(response);
-    return response.data.requiredFields;
+    return response.data;
   } catch (error) {
     console.log("Error at retrieving required Fields", error);
   }
