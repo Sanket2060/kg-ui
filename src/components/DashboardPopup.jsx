@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { login, logout } from "../features/user/authSlice.js";
 import axios from "axios";
 
-const DashboardPopup = ({ isOpen, onClose, message }) => {
+const DashboardPopup = ({ isOpen, onClose,specialClass }) => {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const [provinces, setProvinces] = useState([]);
@@ -158,10 +158,6 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
     }
 
     try {
-      localStorage.setItem("selectedProvinceName", provinceName);
-      localStorage.setItem("selectedDistrictName", districtName);
-      localStorage.setItem("selectedMunicipalityName", municipalityName);
-      localStorage.setItem("selectedWardNo", wardNo);
       const updatedUser = await updateProfile(
         provinceName,
         districtName,
@@ -188,7 +184,7 @@ const DashboardPopup = ({ isOpen, onClose, message }) => {
             <div className="text-base w-full">
               <div className="mb-4 text-base flex justify-between hover:cursor-pointer">
                 <div>Select Your Location</div>
-                <img src={cross} className="w-4 h-4" alt="" onClick={onClose} />
+                <img src={cross} className={`w-4 h-4 ${specialClass}`} alt="" onClick={onClose} />
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16 sm:mb-0">
                 <div className="rounded-xl w-full">

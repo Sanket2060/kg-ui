@@ -14,12 +14,15 @@ import { v4 as uuidv4 } from "uuid";
 import CryptoJS from "crypto-js";
 import axios from "axios";
 import { login } from "@/features/user/authSlice"; // Assuming `login` is the Redux action to update user data
+import DashboardPopup from "./DashboardPopup";
+import { toast } from "react-toastify";
 
 function GenerateDocumentComp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const user = useSelector((state) => state.auth.userDetails);
+  const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
   const [transactionUuid] = useState(uuidv4()); // Generate a unique transaction ID
   const [work, setWork] = useState("");
   const [currentFields, setCurrentFields] = useState([]);
@@ -74,6 +77,24 @@ function GenerateDocumentComp() {
     setCurrentFields(Fields);
   };
 
+  const handleClosePopup = async () => {
+    try {
+      const userDetailsResponse = await axios.get(
+        `${import.meta.env.VITE_REACT_APP_BASE_URL}/getDetails/fetchUserProfileDetails`,
+        { withCredentials: true }
+      );
+      console.log("Fetched user profile details successfully.");
+      // Dispatch the login action with the fetched user profile data
+      dispatch(login(userDetailsResponse.data.userProfile));
+
+      console.log("User profile details updated successfully.");
+      setShowPopup(false);
+    } catch (error) {
+      console.error("Error fetching user profile details:", error);
+      setShowPopup(false);
+    }
+  };
+
   const placeholderTexts = {
     parentName: "Ram Bahadur",
     wardno: "12",
@@ -83,6 +104,20 @@ function GenerateDocumentComp() {
   };
 
   const submitGenerationDetails = async (data) => {
+    console.log(
+      "province,district,municipality,wardno",
+      user.province,
+      user.district,
+      user.municipality,
+      user.ward
+    );
+    if (!user.province || !user.district || !user.municipality || !user.ward) {
+      toast.warn(
+        "Please fill the province,district,municipality and wardno to generate document"
+      );
+      setShowPopup(true); // Show popup when validation fails
+      return;
+    }
     const response = await generateDocument({ ...data, work, user });
     if (response) {
       try {
@@ -103,29 +138,6 @@ function GenerateDocumentComp() {
     }
   };
 
-  const [locationInfo, setLocationInfo] = useState({
-    selectedProvinceName: "",
-    selectedDistrictName: "",
-    selectedMunicipalityName: "",
-    selectedWardNo: "",
-  });
-
-  // Retrieve data from localStorage when the component mounts
-  useEffect(() => {
-    const province = localStorage.getItem("selectedProvinceName");
-    const district = localStorage.getItem("selectedDistrictName");
-    const municipality = localStorage.getItem("selectedMunicipalityName");
-    const ward = localStorage.getItem("selectedWardNo");
-
-    // Update the state with the retrieved data
-    setLocationInfo({
-      selectedProvinceName: province || "",
-      selectedDistrictName: district || "",
-      selectedMunicipalityName: municipality || "",
-      selectedWardNo: ward || "",
-    });
-  }, []);
-
   // Function to generate the signature
   const generateSignature = () => {
     const secretKey = "8gBm/:&EnhH.1/q"; // Replace with your actual secret key
@@ -145,6 +157,14 @@ function GenerateDocumentComp() {
 
   return (
     <div className="font-Poppins text-base mx-2 lg:ml-24 lg:mr-48 flex flex-col">
+      {showPopup && (
+        <DashboardPopup
+          isOpen={true}
+          onClose={handleClosePopup}
+          message="Please fill all required fields."
+          specialClass="hidden"
+        />
+      )}
       <div className="flex lg:justify-between lg:items-center flex-col lg:flex-row">
         <div className="flex">
           <div className="w-[5.6rem] flex-col">
@@ -154,15 +174,13 @@ function GenerateDocumentComp() {
         </div>
         <div className="flex items-center">
           <div className="flex lg:w-[29rem] px-4 rounded-xl py-2 border-[1px] border-[#E2E7ED] justify-center items-center">
-            {locationInfo.selectedProvinceName}/
-            {locationInfo.selectedDistrictName}/
-            {locationInfo.selectedMunicipalityName}/
-            {locationInfo.selectedWardNo}
+            {user.province || null}/{user.district || null}/
+            {user.municipality || null}/{user.ward || null}
           </div>
         </div>
       </div>
 
-      {documentCount >= 10 && documentTokens === 0 ? (
+      {documentCount > 10 && documentTokens === 0 ? (
         <div className="text-center mt-10">
           <p className="text-red-600 mb-4">
             You have generated {documentCount} documents. Please pay 5 rupees
@@ -265,18 +283,41 @@ function GenerateDocumentComp() {
               onChange={onWorkChange}
             />
           </div>
-          <div className="min-h-[20rem] lg:max-h-[20rem] border-[1px] lg:border-black rounded-md mb-6 overflow-y-auto">
-            <div className="p-6 flex flex-wrap gap-2">
-              {currentFields?.map((field) => (
-                <InputGenerateDocument
-                  key={field}
-                  inputText={field}
-                  placeholderText={placeholderTexts[field] || `Enter ${field}`}
-                  {...register(field)} // Pass register props to the component
-                />
-              ))}
+          {!user?.province?.trim() ||
+          !user?.district?.trim() ||
+          !user?.municipality?.trim() ||
+          !user?.ward?.toString().trim() ? (
+            <>
+              <div className="min-h-[20rem] lg:max-h-[20rem] border-[1px] border-gray-300 lg:border-gray-400 bg-gray-100 rounded-md mb-6 p-6 flex flex-col justify-center items-center shadow-lg">
+                <p className="text-gray-700 font-medium text-lg mb-4 text-center">
+                  You haven't set your province, district, municipality, or ward
+                  yet.
+                </p>
+                <button
+                  onClick={() => setShowPopup(true)}
+                  className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition-colors duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-300"
+                >
+                  Set Now
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="min-h-[20rem] lg:max-h-[20rem] border-[1px] lg:border-black rounded-md mb-6 overflow-y-auto">
+              <div className="p-6 flex flex-wrap gap-2">
+                {currentFields?.map((field) => (
+                  <InputGenerateDocument
+                    key={field}
+                    inputText={field}
+                    placeholderText={
+                      placeholderTexts[field] || `Enter ${field}`
+                    }
+                    {...register(field)} // Pass register props to the component
+                  />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
+
           <div className="flex justify-end">
             <Button
               type="submit"
